@@ -4,7 +4,7 @@ import { PRICING_LIST, DIAGNOSTIC_FEE } from "@/lib/constants"
 
 export function PricingSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section id="pricing" className="bg-white py-16 md:py-24 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
