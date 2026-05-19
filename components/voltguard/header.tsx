@@ -7,6 +7,13 @@ import { Button } from "@/components/ui/button"
 import { PHONE_NUMBER } from "@/lib/constants"
 import { trackEvent, EVENTS } from "@/lib/analytics"
 
+const navItems = [
+  { label: "Why Us", href: "#why-us" },
+  { label: "Services", href: "#services" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQs", href: "#faq" },
+]
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -26,6 +33,14 @@ export function Header() {
       formElement.scrollIntoView({ behavior: "smooth" })
     }
     setIsMobileMenuOpen(false)
+  }
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false)
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   return (
@@ -50,6 +65,19 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.href}
+                onClick={() => handleNavClick(item.href)}
+                className="text-slate-300 hover:text-white transition-colors font-medium text-sm"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-6">
             <span className="text-slate-300 font-medium">
               {PHONE_NUMBER}
@@ -58,7 +86,7 @@ export function Header() {
               onClick={scrollToForm}
               className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6"
             >
-              Book Emergency Service
+              Book Now
             </Button>
           </div>
 
@@ -75,7 +103,18 @@ export function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-slate-800">
-            <div className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-2 mb-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-slate-300 hover:text-white transition-colors font-medium py-2 text-left"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+            <div className="flex flex-col gap-4 pt-4 border-t border-slate-800">
               <span className="text-slate-300 font-medium text-center py-2">
                 Call: {PHONE_NUMBER}
               </span>
@@ -83,7 +122,7 @@ export function Header() {
                 onClick={scrollToForm}
                 className="bg-orange-500 hover:bg-orange-600 text-white font-semibold w-full"
               >
-                Book Emergency Service
+                Book Now
               </Button>
             </div>
           </div>
