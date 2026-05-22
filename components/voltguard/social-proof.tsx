@@ -44,7 +44,7 @@ export function SocialProof() {
               <Card className="bg-slate-800 border-slate-700 h-full overflow-hidden">
                 {/* Customer Image - Full Width Top */}
                 {testimonial.image && (
-                  <div className="relative w-full h-64 -mx-0 -mt-0 mb-4">
+                  <div className="relative w-full h-64">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.author}
@@ -55,7 +55,7 @@ export function SocialProof() {
                   </div>
                 )}
                 
-                <CardContent className="pt-0">
+                <CardContent className="pt-4">
                   <Quote className="w-8 h-8 text-blue-500 mb-3 opacity-50" />
                   <p className="text-slate-300 mb-4 leading-relaxed text-sm">
                     {`"${testimonial.quote}"`}

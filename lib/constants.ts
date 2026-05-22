@@ -21,36 +21,42 @@ export const SERVICES = [
     title: "Panel Upgrades",
     description: "Modernize your electrical panel to handle today's power demands safely.",
     price: "$1,800 - $2,500",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-panel-upgrades%20%281%29.jpg-Ka0GHCFcDgqnWrd617GAeHu8qVw6z6.png",
   },
   {
     id: "outlet-switch-repair", 
     title: "Outlet & Switch Repair",
     description: "Fix faulty outlets, sparking switches, and worn receptacles.",
     price: "$125 - $175",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-outlet-switch-HucqbXC4prfkaPg7AS69Kjj531Zj0D.jpg",
   },
   {
     id: "breaker-issues",
     title: "Breaker Issues",
     description: "Diagnose and replace tripping breakers and faulty circuits.",
     price: "$150 - $250",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-breaker-issues-orChMGBt9M5uOnWQSgSWWhkfZduc50.jpg",
   },
   {
     id: "lighting-installation",
     title: "Lighting Installation",
     description: "Install fixtures, dimmers, and smart lighting systems.",
     price: "Quote Required",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-lighting-installation.jpg-tQ8gCGLpLDvIs4gmMy8ORrVGYF19Xu.png",
   },
   {
     id: "surge-protection",
     title: "Surge Protection",
     description: "Whole-home surge protection to safeguard your electronics.",
     price: "$350 - $500",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-surge-protection-xPpdFk2gmLNw75ZGtUZi4iHxW2YrK8.jpg",
   },
   {
     id: "emergency-troubleshooting",
     title: "Emergency Troubleshooting",
     description: "24/7 emergency diagnosis for power outages and electrical hazards.",
     price: "$89 diagnostic",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-emergency-troubleshooting%20%282%29.jpg-3TKa53oEu4ZRin1zhAjbad7AAFGtbv.png",
   },
 ]
 
