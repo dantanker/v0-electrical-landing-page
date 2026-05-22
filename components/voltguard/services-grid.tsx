@@ -4,51 +4,8 @@ import { Zap, Plug, CircuitBoard, Lightbulb, ShieldCheck, AlertTriangle, ArrowRi
 import { Card, CardContent } from "@/components/ui/card"
 import { trackEvent, EVENTS } from "@/lib/analytics"
 import { RotateIn } from "@/lib/scroll-animations"
-
-const services = [
-  {
-    id: "panel-upgrades",
-    icon: CircuitBoard,
-    title: "Panel Upgrades",
-    description: "Modernize your electrical panel to handle today's power demands safely.",
-    price: "$1,800 - $2,500",
-  },
-  {
-    id: "outlet-switch-repair",
-    icon: Plug,
-    title: "Outlet & Switch Repair",
-    description: "Fix faulty outlets, sparking switches, and worn receptacles.",
-    price: "$125 - $175",
-  },
-  {
-    id: "breaker-issues",
-    icon: Zap,
-    title: "Breaker Issues",
-    description: "Diagnose and replace tripping breakers and faulty circuits.",
-    price: "$150 - $250",
-  },
-  {
-    id: "lighting-installation",
-    icon: Lightbulb,
-    title: "Lighting Installation",
-    description: "Install fixtures, dimmers, and smart lighting systems.",
-    price: "Quote Required",
-  },
-  {
-    id: "surge-protection",
-    icon: ShieldCheck,
-    title: "Surge Protection",
-    description: "Whole-home surge protection to safeguard your electronics.",
-    price: "$350 - $500",
-  },
-  {
-    id: "emergency-troubleshooting",
-    icon: AlertTriangle,
-    title: "Emergency Troubleshooting",
-    description: "24/7 emergency diagnosis for power outages and electrical hazards.",
-    price: "$89 diagnostic",
-  },
-]
+import { SERVICES } from "@/lib/constants"
+import Image from "next/image"
 
 export function ServicesGrid() {
   const handleServiceClick = (serviceId: string) => {
@@ -72,16 +29,26 @@ export function ServicesGrid() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
+          {SERVICES.map((service, index) => (
             <RotateIn key={service.id} delay={index * 0.08}>
               <Card 
-                className="bg-slate-50 border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group cursor-pointer h-full"
+                className="bg-slate-50 border-slate-200 hover:border-blue-300 hover:shadow-md transition-all group cursor-pointer h-full overflow-hidden"
                 onClick={() => handleServiceClick(service.id)}
               >
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-                    <service.icon className="w-6 h-6 text-white" />
+                {/* Service Image */}
+                {service.image && (
+                  <div className="relative w-full h-48 -mx-0 -mt-0 mb-3">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                      crossOrigin="anonymous"
+                    />
                   </div>
+                )}
+                
+                <CardContent className="pt-3">
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">
                     {service.title}
                   </h3>
