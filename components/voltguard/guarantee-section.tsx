@@ -23,16 +23,16 @@ const guarantees = [
 
 export function GuaranteeSection() {
   return (
-    <section className="bg-slate-50 py-16 md:py-24">
+    <section className="bg-slate-900 py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <FadeInUp delay={0}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Our Guarantees to You
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.1}>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-slate-400 max-w-2xl mx-auto">
               We stand behind our work. Period. {"Here's"} our promise to every customer.
             </p>
           </FadeInUp>
