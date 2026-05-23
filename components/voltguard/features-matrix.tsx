@@ -1,5 +1,6 @@
 import { Clock, Shield, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { ShinyHeading } from "@/components/ShinyText"
 import { DIAGNOSTIC_FEE } from "@/lib/constants"
 import { FadeInUp, WaveItem } from "@/lib/scroll-animations"
 
@@ -23,16 +24,19 @@ const features = [
 
 export function FeaturesMatrix() {
   return (
-    <section id="why-us" className="bg-slate-50 py-16 md:py-24 scroll-mt-20">
+    <section id="why-us" className="py-16 md:py-24 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <FadeInUp delay={0}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
-              Why Chicago Homeowners Choose VoltGuard
+            <h2 className="mb-4">
+              <ShinyHeading
+                text="Why Chicago Homeowners Choose VoltGuard"
+                className="text-2xl sm:text-3xl font-bold"
+              />
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.1}>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               When the lights go out, you need someone you can trust. {"Here's"} what sets us apart.
             </p>
           </FadeInUp>
@@ -41,15 +45,15 @@ export function FeaturesMatrix() {
         <div className="grid md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <WaveItem key={feature.title} index={index} delay={0.15}>
-              <Card className="bg-white border-slate-200 shadow-sm hover:shadow-md transition-all h-full">
+              <Card className="bg-slate-800 border-slate-700 shadow-sm hover:shadow-md transition-all h-full">
                 <CardContent className="pt-6">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-700 transition-colors">
                     <feature.icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                  <h3 className="text-lg font-semibold text-white mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-slate-300 text-sm leading-relaxed">
                     {feature.description}
                   </p>
                 </CardContent>

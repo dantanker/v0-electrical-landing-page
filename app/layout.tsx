@@ -1,20 +1,23 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://voltguard.com'),
-  title: 'VoltGuard Electrical | 24/7 Emergency Electricians | Chicago Suburbs',
-  description: 'Fast, licensed emergency electricians serving Arlington Heights, Schaumburg, Palatine & Hoffman Estates. 42-minute average response. Flat-rate pricing. Call (555) 019-2834.',
+  title: 'VoltGuard Electrical | Power Done Right | Chicago Suburbs',
+  description: 'Trusted residential & commercial electrical service for over 20 years. Serving Arlington Heights, Schaumburg, Palatine & Hoffman Estates. Call (555) 019-2834.',
   generator: 'v0.app',
   keywords: ['emergency electrician', 'Chicago electrician', 'Arlington Heights electrician', 'Schaumburg electrician', '24/7 electrical service'],
   openGraph: {
-    title: 'VoltGuard Electrical | 24/7 Emergency Electricians',
-    description: 'Fast, licensed emergency electricians serving Chicago suburbs. 42-minute average response.',
+    title: 'VoltGuard Electrical | Power Done Right',
+    description: 'Trusted residential & commercial electrical service for over 20 years.',
     type: 'website',
     images: [
       {
@@ -27,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VoltGuard Electrical | 24/7 Emergency Electricians',
-    description: 'Fast, licensed emergency electricians serving Chicago suburbs. 42-minute average response.',
+    title: 'VoltGuard Electrical | Power Done Right',
+    description: 'Trusted residential & commercial electrical service for over 20 years.',
     images: ['/voltguard-logo-white-no-tagline.png'],
   },
   icons: {
@@ -48,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-slate-900">
+    <html lang="en" className={`${outfit.variable} bg-slate-900`}>
       <body className="font-sans antialiased bg-slate-900">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

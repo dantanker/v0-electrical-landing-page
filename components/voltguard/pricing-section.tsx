@@ -1,20 +1,25 @@
 import { Check } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { ShinyHeading } from "@/components/ShinyText"
 import { PRICING_LIST, DIAGNOSTIC_FEE } from "@/lib/constants"
+import { QuoteCtaButton } from "./quote-cta-button"
 import { FadeInUp, SlideInLeft, SlideInRight, WaveItem } from "@/lib/scroll-animations"
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="bg-white py-16 md:py-24 scroll-mt-20">
+    <section id="pricing" className="py-16 md:py-24 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <FadeInUp delay={0}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
-              Transparent, Flat-Rate Pricing
+            <h2 className="mb-4">
+              <ShinyHeading
+                text="Transparent, Flat-Rate Pricing"
+                className="text-2xl sm:text-3xl font-bold"
+              />
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.1}>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-slate-300 max-w-2xl mx-auto">
               No hidden fees. No overtime charges. Just honest work at honest prices.
             </p>
           </FadeInUp>
@@ -43,20 +48,20 @@ export function PricingSection() {
 
           {/* Pricing List */}
           <SlideInRight delay={0.2}>
-            <Card className="bg-slate-50 border-slate-200">
+            <Card className="bg-slate-800 border-slate-700">
               <CardContent className="pt-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                <h3 className="text-lg font-semibold text-white mb-4">
                   Common Services
                 </h3>
                 <ul className="space-y-3">
                   {PRICING_LIST.map((item, index) => (
                     <WaveItem key={item.service} index={index} delay={0.08}>
-                      <li className="flex items-center justify-between py-2 border-b border-slate-200 last:border-0">
+                      <li className="flex items-center justify-between py-2 border-b border-slate-700 last:border-0">
                         <div className="flex items-center gap-2">
                           <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          <span className="text-slate-700">{item.service}</span>
+                          <span className="text-slate-300">{item.service}</span>
                         </div>
-                        <span className="text-slate-900 font-medium">{item.price}</span>
+                        <span className="text-white font-medium">{item.price}</span>
                       </li>
                     </WaveItem>
                   ))}
@@ -68,9 +73,12 @@ export function PricingSection() {
 
         {/* Trust Callout */}
         <FadeInUp delay={0.4}>
-          <p className="text-center text-slate-500 text-sm mt-8">
+          <p className="text-center text-slate-400 text-sm mt-8">
             All prices include labor and materials. No overtime charges, ever.
           </p>
+          <div className="flex justify-center mt-8">
+            <QuoteCtaButton location="pricing" className="h-14 px-8 text-lg" />
+          </div>
         </FadeInUp>
       </div>
     </section>

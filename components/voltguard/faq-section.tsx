@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { ShinyHeading } from "@/components/ShinyText"
 import { FAQS } from "@/lib/constants"
 import { trackEvent, EVENTS } from "@/lib/analytics"
 import { FadeInUp, BlurIn } from "@/lib/scroll-animations"
@@ -18,25 +19,19 @@ export function FAQSection() {
   }
 
   return (
-    <section 
-      id="faq" 
-      className="py-16 md:py-24 scroll-mt-20 bg-cover bg-center bg-no-repeat relative"
-      style={{
-        backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/voltguard-van-crew-final.jpg-Y1SLg3n7DZKWndRoSAre2lIpjbWMvw.png)',
-      }}
-    >
-      {/* Moderate overlay for readability with bright background image */}
-      <div className="absolute inset-0 bg-black/35"></div>
-      
+    <section id="faq" className="relative py-16 md:py-24 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12">
           <FadeInUp delay={0}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 drop-shadow-lg">
-              Frequently Asked Questions
+            <h2 className="mb-4">
+              <ShinyHeading
+                text="Frequently Asked Questions"
+                className="text-2xl sm:text-3xl font-bold"
+              />
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.1}>
-            <p className="text-slate-100 drop-shadow">
+            <p className="text-slate-300">
               Got questions? {"We've"} got answers.
             </p>
           </FadeInUp>
@@ -53,14 +48,14 @@ export function FAQSection() {
             <BlurIn key={faq.id} delay={index * 0.08}>
               <AccordionItem 
                 value={faq.id}
-                className="bg-white/93 backdrop-blur-md border border-slate-200/60 rounded-lg shadow-md hover:shadow-lg data-[state=open]:shadow-lg transition-all"
+                className="bg-slate-800/90 backdrop-blur-md border border-slate-700 rounded-lg shadow-md hover:shadow-lg data-[state=open]:shadow-lg transition-all"
               >
                 <AccordionTrigger className="text-left font-medium hover:no-underline py-4 px-6 group">
-                  <span className="text-slate-900 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <span className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
                     {faq.question}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-800 pb-4 px-6 leading-relaxed font-medium">
+                <AccordionContent className="text-slate-300 pb-4 px-6 leading-relaxed font-medium">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

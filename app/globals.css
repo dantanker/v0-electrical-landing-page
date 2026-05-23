@@ -75,8 +75,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -119,8 +119,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply font-sans text-foreground;
+    background: transparent;
   }
 }
 
@@ -224,4 +233,161 @@
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
+}
+
+/* Site-wide animated dark blue background (slate-900 palette) */
+.animated-dark-bg__orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.65;
+  will-change: transform;
+}
+
+.animated-dark-bg__orb--1 {
+  top: -10%;
+  left: -5%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 720px;
+  max-height: 720px;
+  background: radial-gradient(circle, #1e3a8a 0%, transparent 70%);
+  animation: animated-dark-bg-drift-1 22s ease-in-out infinite;
+}
+
+.animated-dark-bg__orb--2 {
+  top: 35%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 640px;
+  max-height: 640px;
+  background: radial-gradient(circle, #1e40af 0%, transparent 70%);
+  animation: animated-dark-bg-drift-2 28s ease-in-out infinite;
+}
+
+.animated-dark-bg__orb--3 {
+  bottom: -15%;
+  left: 25%;
+  width: 60vw;
+  height: 45vw;
+  max-width: 780px;
+  max-height: 560px;
+  background: radial-gradient(circle, #172554 0%, transparent 70%);
+  animation: animated-dark-bg-drift-3 26s ease-in-out infinite;
+}
+
+.animated-dark-bg__mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(37, 99, 235, 0.28), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(30, 64, 175, 0.32), transparent 50%),
+    linear-gradient(180deg, #0f172a 0%, #0f172a 40%, #0b1220 100%);
+  animation: animated-dark-bg-mesh-shift 18s ease-in-out infinite alternate;
+}
+
+@keyframes animated-dark-bg-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(8vw, 6vh) scale(1.08); }
+}
+
+@keyframes animated-dark-bg-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-6vw, 8vh) scale(1.05); }
+}
+
+@keyframes animated-dark-bg-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, -5vh) scale(1.1); }
+}
+
+@keyframes partner-marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.partner-marquee-track {
+  animation: partner-marquee-right 55s linear infinite;
+}
+
+.partner-marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4%,
+    black 96%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4%,
+    black 96%,
+    transparent
+  );
+}
+
+.partner-logo-mark {
+  display: block;
+  height: 2.25rem;
+  width: auto;
+  max-width: 10.5rem;
+  object-fit: contain;
+  opacity: 0.92;
+  transition: opacity 0.25s ease;
+}
+
+.partner-logo-mark:hover {
+  opacity: 1;
+}
+
+@keyframes animated-dark-bg-mesh-shift {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+/* Shield map (Leaflet) */
+.voltguard-shield-map .leaflet-container {
+  background: #1e293b;
+  font-family: inherit;
+}
+
+.voltguard-shield-map .leaflet-tile-pane {
+  filter: brightness(1.26) contrast(1.03) sepia(0.14) hue-rotate(352deg) saturate(1.18);
+}
+
+.voltguard-shield-map .leaflet-control-container {
+  display: none;
+}
+
+.voltguard-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.voltguard-map-marker__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #c2410c;
+  border: 2px solid #fed7aa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.voltguard-shield-map .leaflet-tooltip {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #f1f5f9;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 4px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.voltguard-shield-map .leaflet-tooltip-top::before {
+  border-top-color: #475569;
 }

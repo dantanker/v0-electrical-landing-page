@@ -1,6 +1,12 @@
 export const PHONE_NUMBER = "(555) 019-2834"
 export const PHONE_LINK = "tel:+15550192834"
 
+export const SITE_HEADLINE = "Power Done Right"
+export const SITE_SUBHEADLINE =
+  "Trusted Residential & Commercial Electrical Service For Over 20 Years"
+export const CTA_LABEL = "Get a Free Quote"
+export const QUOTE_FORM_ID = "quote-form"
+
 export const SERVICE_AREA_ZIPS = ["60004", "60005", "60056", "60173", "60193"]
 
 export const SERVICE_AREA_CITIES = [
@@ -57,6 +63,27 @@ export const SERVICES = [
     description: "24/7 emergency diagnosis for power outages and electrical hazards.",
     price: "$89 diagnostic",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/service-emergency-troubleshooting%20%282%29.jpg-3TKa53oEu4ZRin1zhAjbad7AAFGtbv.png",
+  },
+  {
+    id: "smart-home-automation",
+    title: "Smart Home Automation",
+    description: "Thermostats, smart switches, and connected home controls installed and configured.",
+    price: "Quote Required",
+    image: "/services/smart-home-automation.png",
+  },
+  {
+    id: "ev-charger-installation",
+    title: "EV Charger Installation",
+    description: "Level 2 home charging stations wired safely to your panel with proper permits.",
+    price: "$800 - $1,500",
+    image: "/services/ev-charger-installation.png",
+  },
+  {
+    id: "home-backup-generator",
+    title: "Home Backup Generator",
+    description: "Standby generator installation with transfer switch for whole-home backup power.",
+    price: "Quote Required",
+    image: "/services/home-backup-generator.png",
   },
 ]
 

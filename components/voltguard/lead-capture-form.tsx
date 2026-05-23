@@ -13,6 +13,7 @@ import {
   validatePhone, 
   validateDescription 
 } from "@/lib/validation"
+import { CTA_LABEL } from "@/lib/constants"
 
 interface FormState {
   zipCode: string
@@ -172,7 +173,7 @@ export function LeadCaptureForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="bg-slate-800 border-slate-700 shadow-2xl" id="hero-form">
+      <Card className="bg-slate-800 border-slate-700 shadow-2xl">
         <CardContent className="pt-8 pb-8 text-center">
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center">
@@ -185,7 +186,7 @@ export function LeadCaptureForm() {
           </p>
           <div className="bg-slate-900/50 rounded-lg p-4 inline-block">
             <p className="text-sm text-slate-400 mb-1">Confirmation Number</p>
-            <p className="text-lg font-mono font-bold text-orange-500">{confirmationNumber}</p>
+            <p className="text-lg font-bold text-orange-500 tracking-wide">{confirmationNumber}</p>
           </div>
         </CardContent>
       </Card>
@@ -193,10 +194,10 @@ export function LeadCaptureForm() {
   }
 
   return (
-    <Card className="bg-slate-800 border-slate-700 shadow-2xl" id="hero-form">
+    <Card className="bg-slate-800 border-slate-700 shadow-2xl">
       <CardHeader className="pb-4">
         <CardTitle className="text-xl text-white text-center">
-          Get Help Now
+          {CTA_LABEL}
         </CardTitle>
         <p className="text-sm text-slate-400 text-center">
           Average response time: 42 minutes
