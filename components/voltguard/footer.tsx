@@ -1,6 +1,7 @@
 "use client"
 
-import { Phone, Clock, MapPin, Zap } from "lucide-react"
+import { Phone, Clock, MapPin } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { AvailabilityCounter } from "./availability-counter"
 import { PHONE_NUMBER, PHONE_LINK, SERVICE_AREA_CITIES, BUSINESS_HOURS } from "@/lib/constants"
@@ -67,14 +68,14 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Logo & Description */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex items-center justify-center w-10 h-10 bg-orange-500 rounded-lg">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-white leading-tight">VoltGuard</span>
-                <span className="text-xs text-slate-400 leading-tight">Electrical Services</span>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/voltguard-logo-white-no-tagline.png"
+                alt="VoltGuard Electrical"
+                width={160}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               {"Chicago's"} trusted emergency electrical service. Licensed, insured, and ready when you need us most.

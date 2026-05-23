@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Zap, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { PHONE_NUMBER } from "@/lib/constants"
 import { trackEvent, EVENTS } from "@/lib/analytics"
@@ -50,17 +51,19 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <button 
+          <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-2 group"
+            className="flex items-center group"
+            aria-label="VoltGuard — go to top"
           >
-            <div className="flex items-center justify-center w-10 h-10 bg-orange-500 rounded-lg group-hover:bg-orange-600 transition-colors">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-lg font-bold text-white leading-tight">VoltGuard</span>
-              <span className="text-xs text-slate-400 leading-tight hidden sm:block">Electrical Services</span>
-            </div>
+            <Image
+              src="/voltguard-logo-white-no-tagline.png"
+              alt="VoltGuard Electrical"
+              width={160}
+              height={48}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </button>
 
           {/* Desktop Navigation */}

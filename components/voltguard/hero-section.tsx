@@ -1,5 +1,4 @@
-import { Shield, BadgeCheck, Clock } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Shield, BadgeCheck } from "lucide-react"
 import { LeadCaptureForm } from "./lead-capture-form"
 import { FadeInUp, SlideInRight } from "@/lib/scroll-animations"
 
@@ -20,30 +19,22 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
           {/* Left Column - Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Badge */}
-            <FadeInUp delay={0}>
-              <Badge className="bg-orange-500/10 text-orange-400 border-orange-500/20 hover:bg-orange-500/20">
-                <Clock className="w-3 h-3 mr-1" />
-                24/7 Emergency Response
-              </Badge>
-            </FadeInUp>
-
             {/* Headline */}
-            <FadeInUp delay={0.1}>
+            <FadeInUp delay={0}>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight text-balance">
                 {"Chicago's Most Trusted Emergency Electricians"}
               </h1>
             </FadeInUp>
 
             {/* Subheadline */}
-            <FadeInUp delay={0.2}>
+            <FadeInUp delay={0.1}>
               <p className="text-lg sm:text-xl text-slate-100 leading-relaxed max-w-2xl">
                 Fast, transparent, licensed. {"We'll"} have power restored before you finish your coffee.
               </p>
             </FadeInUp>
 
             {/* Trust Badges */}
-            <FadeInUp delay={0.3}>
+            <FadeInUp delay={0.2}>
               <div className="flex flex-wrap gap-4 pt-2">
                 <div className="flex items-center gap-2 text-slate-200 hover:text-white transition-colors">
                   <div className="w-8 h-8 bg-blue-600/30 rounded-lg flex items-center justify-center">
@@ -67,7 +58,7 @@ export function HeroSection() {
             </FadeInUp>
 
             {/* Social Proof Stat */}
-            <FadeInUp delay={0.4}>
+            <FadeInUp delay={0.3}>
               <div className="pt-4 hidden lg:block">
                 <p className="text-slate-300 text-sm">
                   <span className="text-white font-semibold">2,847 Chicago families</span> served this year

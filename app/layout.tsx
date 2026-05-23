@@ -7,6 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://voltguard.com'),
   title: 'VoltGuard Electrical | 24/7 Emergency Electricians | Chicago Suburbs',
   description: 'Fast, licensed emergency electricians serving Arlington Heights, Schaumburg, Palatine & Hoffman Estates. 42-minute average response. Flat-rate pricing. Call (555) 019-2834.',
   generator: 'v0.app',
@@ -15,23 +16,29 @@ export const metadata: Metadata = {
     title: 'VoltGuard Electrical | 24/7 Emergency Electricians',
     description: 'Fast, licensed emergency electricians serving Chicago suburbs. 42-minute average response.',
     type: 'website',
+    images: [
+      {
+        url: '/voltguard-logo-white-no-tagline.png',
+        width: 1280,
+        height: 384,
+        alt: 'VoltGuard Electrical',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VoltGuard Electrical | 24/7 Emergency Electricians',
+    description: 'Fast, licensed emergency electricians serving Chicago suburbs. 42-minute average response.',
+    images: ['/voltguard-logo-white-no-tagline.png'],
   },
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/voltguard-logo-white-no-tagline.png',
+        type: 'image/png',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/voltguard-logo-white-no-tagline.png',
   },
 }
 
