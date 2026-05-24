@@ -164,7 +164,7 @@ export function PartnerMarquee() {
 export function PartnerMarqueeBelowHero() {
   return (
     <div
-      className="relative z-10 isolate border-y border-slate-800/80 bg-slate-950 md:hidden"
+      className="relative z-10 isolate border-y border-slate-800/80 bg-transparent md:hidden"
       aria-label="Partner company logos"
     >
       <div className="max-w-6xl mx-auto px-4 py-4 sm:px-6 lg:px-8">

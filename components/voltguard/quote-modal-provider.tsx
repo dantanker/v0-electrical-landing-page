@@ -4,6 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react"
@@ -288,7 +290,7 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
 
   const fieldClass = (field: keyof FormState, success?: boolean) =>
     cn(
-      "h-9 w-full rounded-md bg-slate-950/70 text-center text-sm text-white",
+      "h-9 w-full rounded-md bg-slate-950/70 text-center text-base text-white sm:text-sm",
       "border border-slate-600/70 placeholder:text-slate-500",
       "focus-visible:border-orange-500/70 focus-visible:ring-2 focus-visible:ring-orange-500/15",
       errors[field] && touched[field] && "border-red-500/70",
@@ -469,6 +471,69 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
   )
 }
 
+function useMobileShieldCenterLock(
+  open: boolean,
+  shieldRef: React.RefObject<HTMLDivElement | null>,
+  recenterKey: boolean
+) {
+  useEffect(() => {
+    if (!open) return
+
+    const isMobile = () => window.matchMedia("(max-width: 767px)").matches
+    if (!isMobile()) return
+
+    const shield = shieldRef.current
+    if (!shield) return
+
+    const centerShield = () => {
+      if (!isMobile()) return
+      const vv = window.visualViewport
+      if (!vv) return
+
+      const width = shield.offsetWidth
+      const height = shield.offsetHeight
+      const top = vv.offsetTop + Math.max(8, (vv.height - height) / 2)
+      const left = vv.offsetLeft + (vv.width - width) / 2
+
+      shield.style.position = "fixed"
+      shield.style.top = `${top}px`
+      shield.style.left = `${left}px`
+      shield.style.transform = "none"
+      shield.style.margin = "0"
+    }
+
+    const resetStyles = () => {
+      shield.style.position = ""
+      shield.style.top = ""
+      shield.style.left = ""
+      shield.style.transform = ""
+      shield.style.margin = ""
+    }
+
+    centerShield()
+    const t1 = window.setTimeout(centerShield, 50)
+    const t2 = window.setTimeout(centerShield, 250)
+
+    const vv = window.visualViewport
+    vv?.addEventListener("resize", centerShield)
+    vv?.addEventListener("scroll", centerShield)
+    shield.addEventListener("focusin", centerShield)
+    window.addEventListener("resize", centerShield)
+    window.addEventListener("orientationchange", centerShield)
+
+    return () => {
+      window.clearTimeout(t1)
+      window.clearTimeout(t2)
+      vv?.removeEventListener("resize", centerShield)
+      vv?.removeEventListener("scroll", centerShield)
+      shield.removeEventListener("focusin", centerShield)
+      window.removeEventListener("resize", centerShield)
+      window.removeEventListener("orientationchange", centerShield)
+      resetStyles()
+    }
+  }, [open, shieldRef, recenterKey])
+}
+
 function QuoteModalContent({
   open,
   onOpenChange,
@@ -480,6 +545,9 @@ function QuoteModalContent({
 }) {
   const [submitted, setSubmitted] = useState(false)
   const [confirmation, setConfirmation] = useState("")
+  const shieldRef = useRef<HTMLDivElement>(null)
+
+  useMobileShieldCenterLock(open, shieldRef, submitted)
 
   const handleOpenChange = (next: boolean) => {
     if (!next) {
@@ -497,18 +565,23 @@ function QuoteModalContent({
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
           className={cn(
-            "fixed left-1/2 top-1/2 z-50 w-[min(94vw,480px,calc(94dvh*520/680))] -translate-x-1/2 -translate-y-1/2",
-            "border-0 bg-transparent p-0 shadow-none outline-none",
+            "fixed z-50 border-0 bg-transparent p-0 shadow-none outline-none",
+            "max-md:inset-0 max-md:h-[100dvh] max-md:w-full max-md:translate-x-0 max-md:translate-y-0 max-md:overflow-hidden",
+            "md:left-1/2 md:top-1/2 md:h-auto md:w-[min(94vw,480px,calc(94dvh*520/680))] md:-translate-x-1/2 md:-translate-y-1/2",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
             "duration-200"
           )}
+          onOpenAutoFocus={(e) => e.preventDefault()}
           aria-describedby={undefined}
         >
           <ShieldBackdrop />
 
-          <div className="relative mx-auto w-full aspect-[520/680]">
+          <div
+            ref={shieldRef}
+            className="relative mx-auto w-[min(94vw,480px,calc(94dvh*520/680))] aspect-[520/680] max-md:max-h-[min(92dvh,680px)]"
+          >
               <div
                 className="pointer-events-none absolute inset-0 opacity-50 blur-2xl"
                 style={{
@@ -567,7 +640,7 @@ function QuoteModalContent({
                       <div className="mx-auto mt-2.5 h-px w-14 bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
                     </div>
 
-                    <div className="flex min-h-0 flex-1 flex-col justify-start overflow-y-auto overscroll-contain pt-1 [scrollbar-width:thin] [scrollbar-color:rgba(249,115,22,0.35)_transparent]">
+                    <div className="flex min-h-0 flex-1 flex-col justify-start overflow-hidden pt-1 max-md:touch-pan-y md:overflow-y-auto md:overscroll-contain md:[scrollbar-width:thin] md:[scrollbar-color:rgba(249,115,22,0.35)_transparent]">
                       <QuoteShieldForm
                         onSuccess={(num) => {
                           setConfirmation(num)
