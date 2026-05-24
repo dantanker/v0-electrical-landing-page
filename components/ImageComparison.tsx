@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { Zap } from "lucide-react"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
@@ -105,25 +106,14 @@ export function ImageComparison({
         <div
           className={cn(
             "flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md transition-all duration-200",
-            isDragging && "scale-110 shadow-xl"
+            isDragging && "scale-110 shadow-xl ring-2 ring-orange-500/30"
           )}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-slate-700"
+          <Zap
+            className="h-4 w-4 text-orange-500 fill-orange-500"
+            strokeWidth={2.25}
             aria-hidden
-          >
-            <line x1="15" y1="18" x2="9" y2="12" />
-            <line x1="9" y1="6" x2="15" y2="12" />
-          </svg>
+          />
         </div>
       </div>
     </div>
