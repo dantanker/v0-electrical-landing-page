@@ -72,9 +72,9 @@ export function ServicesArcGallery() {
       const offset = cardCenter - centerX
       const norm = Math.max(-1, Math.min(1, offset / centerX))
 
-      const rotate = norm * 12
-      const arcY = -28 * (1 - Math.abs(norm))
-      const scale = 1 - Math.abs(norm) * 0.08
+      const rotate = norm * (containerWidth >= 768 ? 12 : 8)
+      const arcY = containerWidth >= 768 ? -28 * (1 - Math.abs(norm)) : 0
+      const scale = 1 - Math.abs(norm) * (containerWidth >= 768 ? 0.08 : 0.05)
 
       card.style.transform = `translate3d(0, ${arcY}px, 0) rotate(${rotate}deg) scale(${scale})`
     })
@@ -201,7 +201,7 @@ export function ServicesArcGallery() {
     >
       <div
         ref={trackRef}
-        className="flex h-full items-start gap-5 py-3 will-change-transform md:gap-7 md:py-4"
+        className="flex h-full items-start gap-5 max-md:pt-4 py-3 will-change-transform md:gap-7 md:py-4"
         style={{
           width: "max-content",
           paddingLeft: `calc(50% - ${cardWidth / 2}px)`,

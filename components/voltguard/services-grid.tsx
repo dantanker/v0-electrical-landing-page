@@ -10,7 +10,7 @@ export function ServicesGrid() {
       id="services"
       className="relative scroll-mt-28 md:scroll-mt-20 overflow-hidden"
     >
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-5 pb-2 md:pb-3">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-5 pb-5 md:pb-3">
         <div className="text-center">
           <FadeInUp delay={0}>
             <p className="text-sm font-semibold uppercase tracking-widest text-orange-500 mb-2">
@@ -24,14 +24,14 @@ export function ServicesGrid() {
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.1}>
-            <p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg">
+            <p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg max-md:mb-1">
               Explore our complete range of electrical solutions.
             </p>
           </FadeInUp>
         </div>
       </div>
 
-      <div className="relative z-10 w-full h-[500px] md:h-[480px]">
+      <div className="relative z-10 w-full h-[380px] max-md:mt-2 md:h-[480px]">
         <ServicesArcGallery />
       </div>
     </section>

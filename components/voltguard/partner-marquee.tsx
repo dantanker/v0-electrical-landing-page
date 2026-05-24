@@ -49,10 +49,13 @@ function PartnerMarqueeTrack() {
 export function PartnerMarquee() {
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 z-20 bg-transparent"
+      className="relative z-20 w-full bg-transparent max-md:mt-2 max-md:border-t max-md:border-white/10 md:absolute md:bottom-0 md:left-0 md:right-0"
       aria-label="Partner company logos"
     >
-      <div className="py-5 md:py-6">
+      <div className="py-4 md:py-6">
+        <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 md:hidden">
+          Trusted Partners & Affiliates
+        </p>
         <PartnerMarqueeTrack />
       </div>
     </div>

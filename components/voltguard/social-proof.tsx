@@ -50,9 +50,11 @@ function ReviewSourceIcon({ label }: { label: string }) {
 function ReviewSourceBadge({
   source,
   align,
+  centered = false,
 }: {
   source: (typeof REVIEW_SOURCES)[number]
   align: "left" | "right"
+  centered?: boolean
 }) {
   return (
     <a
@@ -62,7 +64,7 @@ function ReviewSourceBadge({
       aria-label={source.label}
       className={clsx(
         "group flex shrink-0 flex-col gap-1 transition-opacity hover:opacity-100",
-        align === "left" ? "items-start" : "items-end",
+        centered ? "items-center" : align === "left" ? "items-start" : "items-end",
         "opacity-90"
       )}
     >
@@ -79,41 +81,53 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
   const google = REVIEW_SOURCES.find((s) => s.shortLabel === "Google")!
   const yelp = REVIEW_SOURCES.find((s) => s.shortLabel === "Yelp")!
 
+  const ratingBlock = (
+    <div className="text-center">
+      <div className="flex items-center justify-center gap-1 mb-0.5">
+        <span
+          className={clsx(
+            "font-bold text-white tabular-nums",
+            compact ? "text-xl" : "text-2xl sm:text-3xl"
+          )}
+        >
+          4.9
+        </span>
+        <div className="flex items-center gap-px">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={clsx(
+                "text-orange-500 fill-orange-500",
+                compact ? "w-3 h-3" : "w-3.5 h-3.5"
+              )}
+            />
+          ))}
+        </div>
+      </div>
+      <p className="text-[11px] text-slate-500 sm:text-xs">Average rating</p>
+    </div>
+  )
+
   return (
     <div
       className={clsx(
-        "w-full max-w-md",
-        compact ? "pt-3" : "border-t border-slate-800 pt-6 mt-8"
+        "w-full max-w-md mx-auto",
+        compact ? "pt-3" : "mt-8 max-md:pt-0 md:border-t md:border-slate-800 md:pt-6"
       )}
     >
-      <div className="flex flex-col items-center gap-4 max-md:gap-3 md:flex-row md:items-center md:justify-between md:gap-3">
-        <ReviewSourceBadge source={google} align="left" />
-
-        <div className="min-w-0 flex-1 text-center">
-          <div className="flex items-center justify-center gap-1 mb-0.5">
-            <span
-              className={clsx(
-                "font-bold text-white tabular-nums",
-                compact ? "text-xl" : "text-2xl sm:text-3xl"
-              )}
-            >
-              4.9
-            </span>
-            <div className="flex items-center gap-px">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={clsx(
-                    "text-orange-500 fill-orange-500",
-                    compact ? "w-3 h-3" : "w-3.5 h-3.5"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-          <p className="text-[11px] text-slate-500 sm:text-xs">Average rating</p>
+      {/* Mobile / tablet — stacked card */}
+      <div className="md:hidden rounded-2xl border border-slate-700/80 bg-slate-800/40 px-5 py-5">
+        <div className="mb-4">{ratingBlock}</div>
+        <div className="flex items-start justify-center gap-10">
+          <ReviewSourceBadge source={google} align="left" centered />
+          <ReviewSourceBadge source={yelp} align="right" centered />
         </div>
+      </div>
 
+      {/* Desktop — horizontal row (unchanged) */}
+      <div className="hidden md:flex items-center justify-between gap-3">
+        <ReviewSourceBadge source={google} align="left" />
+        <div className="min-w-0 flex-1">{ratingBlock}</div>
         <ReviewSourceBadge source={yelp} align="right" />
       </div>
     </div>

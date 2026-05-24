@@ -105,14 +105,22 @@ export function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white hover:text-white transition-colors shrink-0 [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.9))]"
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile CTA + Menu */}
+          <div className="md:hidden flex items-center gap-2 shrink-0">
+            <div className="[filter:drop-shadow(0_4px_14px_rgba(0,0,0,0.85))]">
+              <QuoteCtaButton
+                location="header-mobile-bar"
+                className="h-9 px-3 text-[11px] sm:h-10 sm:px-4 sm:text-xs"
+              />
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-white hover:text-white transition-colors shrink-0 [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.9))]"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
