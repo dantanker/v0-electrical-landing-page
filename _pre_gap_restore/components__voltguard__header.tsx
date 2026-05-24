@@ -11,8 +11,6 @@ import { PHONE_NUMBER } from "@/lib/constants"
 const navItems = [
   { label: "Why Us", href: "#why-us" },
   { label: "Services", href: "#services" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Locations", href: "#service-area" },
   { label: "FAQs", href: "#faq" },
 ]
 

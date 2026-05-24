@@ -6,14 +6,12 @@ import { ServiceAreaSection } from "@/components/voltguard/service-area-section"
 import { ServicesGrid } from "@/components/voltguard/services-grid"
 import { FAQSection } from "@/components/voltguard/faq-section"
 import { Footer } from "@/components/voltguard/footer"
-import { AnimatedDarkBackground } from "@/components/AnimatedDarkBackground"
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
-      <AnimatedDarkBackground />
+    <div className="min-h-screen">
       <Header />
-      <main className="relative z-10">
+      <main>
         <HeroSection />
         <FeaturesMatrix />
         <ServicesGrid />

@@ -4,117 +4,24 @@ import clsx from "clsx"
 import Image from "next/image"
 import { Star } from "lucide-react"
 import { ScrollObserver } from "@/components/ScrollObserver"
-import { SOCIAL_LINKS, TESTIMONIALS } from "@/lib/constants"
-
-const REVIEW_SOURCES = SOCIAL_LINKS.filter(
-  (link) => link.shortLabel === "Google" || link.shortLabel === "Yelp"
-)
-
-function GoogleIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" aria-hidden>
-      <path
-        fill="#4285F4"
-        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
-      />
-      <path
-        fill="#34A853"
-        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-      />
-    </svg>
-  )
-}
-
-function YelpIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="#FF1A1A" aria-hidden>
-      <path d="M12.271 15.068l-2.45 7.038a.588.588 0 0 1-1.101-.151l.957-3.294-2.063-1.19a.588.588 0 0 1 .303-1.089l7.228-1.043 2.127-6.127a.588.588 0 0 1 1.101.151l-.957 3.294 2.063 1.19a.588.588 0 0 1-.303 1.089l-7.228 1.043-2.127 6.127z" />
-    </svg>
-  )
-}
-
-function ReviewSourceIcon({ label }: { label: string }) {
-  if (label === "Google") return <GoogleIcon className="h-3.5 w-3.5 shrink-0" />
-  if (label === "Yelp") return <YelpIcon className="h-3.5 w-3.5 shrink-0" />
-  return null
-}
-
-function ReviewSourceBadge({
-  source,
-  align,
-}: {
-  source: (typeof REVIEW_SOURCES)[number]
-  align: "left" | "right"
-}) {
-  return (
-    <a
-      href={source.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={source.label}
-      className={clsx(
-        "group flex shrink-0 flex-col gap-1 transition-opacity hover:opacity-100",
-        align === "left" ? "items-start" : "items-end",
-        "opacity-90"
-      )}
-    >
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-700/70 bg-slate-800/60 px-2.5 py-1 text-[11px] font-medium text-slate-200 transition-colors group-hover:border-slate-500 group-hover:text-white">
-        <ReviewSourceIcon label={source.shortLabel} />
-        {source.shortLabel}
-      </span>
-      <span className="text-[10px] text-slate-500">Verified</span>
-    </a>
-  )
-}
+import { TESTIMONIALS } from "@/lib/constants"
 
 function ReviewStats({ compact = false }: { compact?: boolean }) {
-  const google = REVIEW_SOURCES.find((s) => s.shortLabel === "Google")!
-  const yelp = REVIEW_SOURCES.find((s) => s.shortLabel === "Yelp")!
-
   return (
     <div
       className={clsx(
-        "w-full max-w-md",
-        compact ? "pt-3" : "border-t border-slate-800 pt-6 mt-8"
+        "flex justify-center items-center w-full max-w-md",
+        compact ? "pt-4" : "border-t border-slate-800 pt-6 mt-8"
       )}
     >
-      <div className="flex items-center justify-between gap-3">
-        <ReviewSourceBadge source={google} align="left" />
-
-        <div className="min-w-0 flex-1 text-center">
-          <div className="flex items-center justify-center gap-1 mb-0.5">
-            <span
-              className={clsx(
-                "font-bold text-white tabular-nums",
-                compact ? "text-xl" : "text-2xl sm:text-3xl"
-              )}
-            >
-              4.9
-            </span>
-            <div className="flex items-center gap-px">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={clsx(
-                    "text-orange-500 fill-orange-500",
-                    compact ? "w-3 h-3" : "w-3.5 h-3.5"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-          <p className="text-[11px] text-slate-500 sm:text-xs">Average rating</p>
+      <div className="text-center">
+        <div className="flex items-center justify-center gap-1 mb-0.5">
+          <span className={clsx("font-bold text-white", compact ? "text-2xl" : "text-3xl sm:text-4xl")}>
+            4.9
+          </span>
+          <Star className="w-5 h-5 text-orange-500 fill-orange-500" />
         </div>
-
-        <ReviewSourceBadge source={yelp} align="right" />
+        <p className="text-slate-400 text-xs sm:text-sm">Average rating</p>
       </div>
     </div>
   )

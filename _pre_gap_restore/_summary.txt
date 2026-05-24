@@ -1,0 +1,17 @@
+app/layout.tsx: 6 ops — DIFFERS from current
+app/page.tsx: 2 ops — DIFFERS from current
+components/SpotlightButton.tsx: 12 ops — DIFFERS from current
+components/voltguard/features-matrix.tsx: 4 ops — DIFFERS from current
+components/voltguard/footer.tsx: 13 ops — DIFFERS from current
+components/voltguard/header.tsx: 7 ops — DIFFERS from current
+components/voltguard/hero-section.tsx: 3 ops — DIFFERS from current
+components/voltguard/lead-capture-form.tsx: 4 ops — DIFFERS from current
+components/voltguard/partner-marquee.tsx: 5 ops — DIFFERS from current
+components/voltguard/quote-cta-button.tsx: 1 ops — DIFFERS from current
+components/voltguard/service-area-cards.tsx: 4 ops — DIFFERS from current
+components/voltguard/service-area-section.tsx: 4 ops — DIFFERS from current
+components/voltguard/services-grid.tsx: 2 ops — DIFFERS from current
+components/voltguard/shield-map.tsx: 2 ops — DIFFERS from current
+components/voltguard/social-proof.tsx: 3 ops — DIFFERS from current
+components/voltguard/why-us-accordion.tsx: 1 ops — DIFFERS from current
+lib/constants.ts: 4 ops — DIFFERS from current
