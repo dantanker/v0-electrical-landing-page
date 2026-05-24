@@ -109,10 +109,10 @@ export function Footer() {
 
   return (
     <>
-      <div className="relative z-10 border-t border-slate-800/80 py-6 md:py-5">
+      <div className="relative z-10 border-t border-slate-800/80 py-4 md:py-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className="mb-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xl font-semibold leading-none text-white sm:mb-6 sm:gap-x-2.5 sm:text-2xl"
+            className="mb-4 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-lg font-semibold leading-none text-white md:mb-6 md:gap-x-2.5 md:text-2xl"
             aria-label={`${FOOTER_CTA_PREFIX} VoltGuard ${FOOTER_CTA_SUFFIX}`}
           >
             <span>{FOOTER_CTA_PREFIX}</span>
@@ -127,7 +127,7 @@ export function Footer() {
             </span>
             <span>{FOOTER_CTA_SUFFIX}</span>
           </div>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-2">
             <SpotlightButton
               href={PHONE_LINK}
               onClick={handlePhoneClick}
@@ -145,27 +145,27 @@ export function Footer() {
 
       <footer
         id="contact"
-        className="relative z-10 scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 bg-slate-950/40 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:bg-transparent md:pb-4"
+        className="relative z-10 scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 bg-slate-950/40 pb-[max(1rem,env(safe-area-inset-bottom))] md:bg-transparent md:pb-4"
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-5">
-          <div className="mb-5 overflow-hidden border-b border-slate-800 pb-5 md:mb-5 md:pb-5">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-5">
+          <div className="mb-4 overflow-hidden border-b border-slate-800 pb-4 md:mb-5 md:pb-5">
             <PartnerMarqueeInline />
           </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 lg:grid-cols-4 lg:gap-y-5 mb-6 md:mb-4">
-            <div className="flex flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1">
+          <div className="mb-4 grid grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 lg:grid-cols-4 lg:gap-y-5 md:mb-4">
+            <div className="col-span-2 flex flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1">
               <Image
                 src="/voltguard-logo-wordmark.png"
                 alt="VoltGuard Electrical"
                 width={869}
                 height={195}
-                className="h-11 w-auto object-contain mb-3"
+                className="mb-1.5 h-5 w-auto max-w-[7.5rem] object-contain md:mb-2 md:h-6 md:max-w-[5.25rem]"
               />
-              <p className="text-sm font-semibold text-white mb-1">{SITE_HEADLINE}</p>
-              <p className="text-xs text-slate-400 leading-relaxed max-w-xs">
+              <p className="mb-0.5 text-sm font-semibold text-white md:mb-1">{SITE_HEADLINE}</p>
+              <p className="max-w-xs text-[11px] leading-snug text-slate-400 md:text-xs md:leading-relaxed">
                 {SITE_SUBHEADLINE}
               </p>
-              <div className="mt-4 flex flex-wrap justify-center gap-1.5 sm:justify-start">
+              <div className="mt-2.5 flex flex-wrap justify-center gap-1.5 sm:justify-start md:mt-4">
                 {SOCIAL_LINKS.map((social) => (
                   <a
                     key={social.label}
@@ -182,11 +182,11 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3">
+            <div className="sm:border-t-0 sm:pt-0">
+              <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-300 md:mb-3 md:text-[11px]">
                 Company
               </h3>
-              <ul className="space-y-1.5">
+              <ul className="space-y-1 md:space-y-1.5">
                 {FOOTER_NAV_LINKS.map((link) => (
                   <li key={link.label}>
                     <FooterNavLink
@@ -199,12 +199,12 @@ export function Footer() {
               </ul>
             </div>
 
-            <div className="border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1">
+            <div className="sm:border-t-0 sm:pt-0">
+              <h3 className="mb-2 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-slate-300 md:mb-3 md:text-[11px]">
                 <MapPin className="h-3 w-3 text-orange-400" />
                 Location
               </h3>
-              <address className="not-italic text-xs text-slate-400 leading-snug">
+              <address className="not-italic text-[11px] leading-snug text-slate-400 md:text-xs">
                 <a
                   href={SHOP_ADDRESS.mapsUrl}
                   target="_blank"
@@ -216,7 +216,7 @@ export function Footer() {
                   {SHOP_ADDRESS.city}, {SHOP_ADDRESS.state} {SHOP_ADDRESS.zip}
                 </a>
               </address>
-              <p className="mt-2 text-[11px] text-slate-500 flex items-start gap-1">
+              <p className="mt-1.5 flex items-start gap-1 text-[10px] text-slate-500 md:mt-2 md:text-[11px]">
                 <Clock className="h-3 w-3 shrink-0 text-blue-400 mt-0.5" />
                 <span>
                   {BUSINESS_HOURS}
@@ -226,14 +226,17 @@ export function Footer() {
               </p>
             </div>
 
-            <div id="licenses" className="scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1">
+            <div
+              id="licenses"
+              className="col-span-2 scroll-mt-28 border-t border-slate-800/80 pt-4 sm:col-span-2 sm:border-t-0 sm:pt-0 lg:col-span-1 md:scroll-mt-20"
+            >
+              <h3 className="mb-2 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-slate-300 md:mb-3 md:text-[11px]">
                 <Shield className="h-3 w-3 text-orange-400" />
                 Licenses
               </h3>
-              <ul className="space-y-1.5">
+              <ul className="grid grid-cols-2 gap-x-4 gap-y-2 lg:block lg:space-y-1.5">
                 {FOOTER_LICENSES.map((license) => (
-                  <li key={license.label} className="text-[11px]">
+                  <li key={license.label} className="text-[10px] md:text-[11px]">
                     <p className="text-slate-500">{license.label}</p>
                     <p className="font-mono text-slate-300">{license.number}</p>
                   </li>
@@ -242,11 +245,11 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 border-t border-slate-800 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[11px] text-slate-500 text-center leading-relaxed sm:text-left">
+          <div className="flex flex-col gap-2.5 border-t border-slate-800 pt-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pt-5">
+            <p className="text-center text-[10px] leading-snug text-slate-500 sm:text-left md:text-[11px] md:leading-relaxed">
               &copy; {new Date().getFullYear()} VoltGuard Electrical
               <span className="hidden sm:inline"> · {SHOP_ADDRESS.full}</span>
-              <span className="block sm:hidden mt-1 text-slate-600">
+              <span className="mt-0.5 block text-slate-600 sm:hidden">
                 {SHOP_ADDRESS.street}, {SHOP_ADDRESS.city}, {SHOP_ADDRESS.state}{" "}
                 {SHOP_ADDRESS.zip}
               </span>
