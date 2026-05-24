@@ -145,7 +145,6 @@ function PartnerMarqueeHeading() {
     </p>
   )
 }
-
 /** Desktop hero — pinned to bottom of hero image */
 export function PartnerMarquee() {
   return (
@@ -167,8 +166,7 @@ export function PartnerMarqueeBelowHero() {
       className="relative z-10 isolate border-y border-slate-800/80 bg-transparent md:hidden"
       aria-label="Partner company logos"
     >
-      <div className="max-w-6xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-        <PartnerMarqueeHeading />
+      <div className="max-w-6xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
         <PartnerMarqueeLoop mobile contained />
       </div>
     </div>

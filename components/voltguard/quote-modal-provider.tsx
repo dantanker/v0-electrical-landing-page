@@ -143,7 +143,13 @@ function FieldGroup({
   )
 }
 
-function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => void }) {
+function QuoteShieldForm({
+  onSuccess,
+  onLayoutChange,
+}: {
+  onSuccess: (confirmation: string) => void
+  onLayoutChange?: () => void
+}) {
   const formId = "quote-shield-form"
   const [formData, setFormData] = useState<FormState>({
     name: "",
@@ -300,8 +306,16 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
   const selectTriggerClass = (success?: boolean) =>
     cn(
       fieldClass("service", success),
-      "relative justify-center [&>svg]:absolute [&>svg]:right-2.5 [&_[data-slot=select-value]]:line-clamp-1 [&_[data-slot=select-value]]:text-center"
+      "relative justify-center max-md:px-7 max-md:text-xs sm:text-sm",
+      "[&_[data-slot=select-value]]:line-clamp-1 [&_[data-slot=select-value]]:text-center [&_[data-slot=select-value]]:max-md:text-[11px]",
+      "[&>svg]:absolute [&>svg]:right-2 [&>svg]:max-md:h-3.5 [&>svg]:max-md:w-3.5"
     )
+
+  const showOtherField = formData.service === OTHER_SERVICE
+
+  useEffect(() => {
+    onLayoutChange?.()
+  }, [showOtherField, onLayoutChange])
 
   const zipValid = validateZipCode(formData.zipCode).valid
   const phoneValid = validatePhone(formData.phone).valid
@@ -332,7 +346,12 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
         />
       </FieldGroup>
 
-      <div className="mt-2 flex flex-col gap-2.5 sm:gap-3">
+      <div
+        className={cn(
+          "mt-2 flex flex-col sm:gap-3",
+          showOtherField ? "max-md:gap-1" : "max-md:gap-2"
+        )}
+      >
       <div className="grid grid-cols-[minmax(0,1fr)_88px] gap-2 sm:grid-cols-[minmax(0,1fr)_92px] sm:gap-2.5">
         <FieldGroup
           label="Phone Number"
@@ -419,13 +438,14 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
         </Select>
       </FieldGroup>
 
-      {formData.service === OTHER_SERVICE && (
+      {showOtherField && (
         <FieldGroup
-          label="Describe Your Service"
+          label="Describe Service"
           htmlFor="quote-other"
           message={
             errors.otherService && touched.otherService ? errors.otherService : undefined
           }
+          className="max-md:space-y-1"
         >
           <Input
             id="quote-other"
@@ -444,11 +464,22 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
         </FieldGroup>
       )}
 
-      <div className="flex flex-col items-center border-t border-slate-700/40 pt-2.5 max-md:px-1">
+      <div
+        className={cn(
+          "flex flex-col items-center border-t border-slate-700/40 max-md:shrink-0 max-md:px-0.5",
+          showOtherField ? "max-md:pt-1.5" : "max-md:pt-2.5",
+          "pt-2.5"
+        )}
+      >
         <SpotlightButton
           type="submit"
           disabled={isSubmitting}
-          className="w-full max-w-[200px] py-2 px-3 shadow-lg shadow-orange-500/20 max-md:text-sm sm:w-[240px] sm:max-w-full sm:px-4 sm:py-2.5 max-md:hover:scale-100"
+          className={cn(
+            "w-full py-2 px-3 shadow-lg shadow-orange-500/20 max-md:hover:scale-100 sm:w-[240px] sm:max-w-full sm:px-4 sm:py-2.5",
+            showOtherField
+              ? "max-md:max-w-[176px] max-md:py-1.5 max-md:px-2"
+              : "max-md:max-w-[200px] max-md:text-sm"
+          )}
         >
           {isSubmitting ? (
             <>
@@ -456,13 +487,25 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
               <SpotlightButtonLabel className="text-xs sm:text-sm">Sending...</SpotlightButtonLabel>
             </>
           ) : (
-            <SpotlightButtonLabel className="text-xs leading-tight sm:text-sm">
-              Request My Free Quote
+            <SpotlightButtonLabel className="text-[11px] leading-tight sm:text-sm">
+              {showOtherField ? (
+                <>
+                  <span className="md:hidden">Request Quote</span>
+                  <span className="hidden md:inline">Request My Free Quote</span>
+                </>
+              ) : (
+                "Request My Free Quote"
+              )}
             </SpotlightButtonLabel>
           )}
         </SpotlightButton>
 
-        <p className="mt-1.5 max-w-[200px] text-center text-[10px] leading-snug text-slate-500 sm:max-w-none">
+        <p
+          className={cn(
+            "mt-1.5 text-center text-[10px] leading-snug text-slate-500 sm:max-w-none",
+            showOtherField ? "max-md:mt-1 max-md:max-w-[176px] max-md:text-[9px]" : "max-w-[200px]"
+          )}
+        >
           No credit card required · We&apos;ll call within 15 minutes
         </p>
       </div>
@@ -474,7 +517,8 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
 function useMobileShieldCenterLock(
   open: boolean,
   shieldRef: React.RefObject<HTMLDivElement | null>,
-  recenterKey: boolean
+  submitted: boolean,
+  formLayoutTick: number
 ) {
   useEffect(() => {
     if (!open) return
@@ -531,7 +575,7 @@ function useMobileShieldCenterLock(
       window.removeEventListener("orientationchange", centerShield)
       resetStyles()
     }
-  }, [open, shieldRef, recenterKey])
+  }, [open, shieldRef, submitted, formLayoutTick])
 }
 
 function QuoteModalContent({
@@ -545,9 +589,14 @@ function QuoteModalContent({
 }) {
   const [submitted, setSubmitted] = useState(false)
   const [confirmation, setConfirmation] = useState("")
+  const [formLayoutTick, setFormLayoutTick] = useState(0)
   const shieldRef = useRef<HTMLDivElement>(null)
 
-  useMobileShieldCenterLock(open, shieldRef, submitted)
+  useMobileShieldCenterLock(open, shieldRef, submitted, formLayoutTick)
+
+  const handleFormLayoutChange = useCallback(() => {
+    setFormLayoutTick((tick) => tick + 1)
+  }, [])
 
   const handleOpenChange = (next: boolean) => {
     if (!next) {
@@ -576,6 +625,13 @@ function QuoteModalContent({
           onOpenAutoFocus={(e) => e.preventDefault()}
           aria-describedby={undefined}
         >
+          <DialogPrimitive.Close
+            className="fixed right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-[60] flex h-9 w-9 items-center justify-center rounded-full border border-slate-500/80 bg-slate-950/95 text-white shadow-lg shadow-black/40 transition-colors hover:border-orange-500/60 hover:text-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-500/40 md:hidden"
+            aria-label="Close quote form"
+          >
+            <X className="h-4 w-4" />
+          </DialogPrimitive.Close>
+
           <ShieldBackdrop />
 
           <div
@@ -623,14 +679,14 @@ function QuoteModalContent({
                 className="relative z-10 flex h-full flex-col overflow-hidden px-5 pb-11 pt-8 sm:px-10 sm:pb-12 sm:pt-12 md:px-8 md:pb-11 md:pt-11"
                 style={{ clipPath: `url(#${SHIELD_CLIP_ID})` }}
               >
-                <DialogPrimitive.Close className="absolute right-3.5 top-3.5 z-20 rounded-full border border-slate-600/60 bg-slate-900/90 p-1.5 text-slate-300 transition-colors hover:border-orange-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/40 sm:right-4 sm:top-4">
+                <DialogPrimitive.Close className="absolute right-3.5 top-3.5 z-20 hidden rounded-full border border-slate-600/60 bg-slate-900/90 p-1.5 text-slate-300 transition-colors hover:border-orange-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/40 md:inline-flex sm:right-4 sm:top-4">
                   <X className="h-4 w-4" />
                   <span className="sr-only">Close</span>
                 </DialogPrimitive.Close>
 
                 {!submitted ? (
                   <>
-                    <div className="mb-4 mt-2 shrink-0 text-center sm:mb-5 sm:mt-3 md:mt-4">
+                    <div className="quote-modal-title mb-4 mt-2 shrink-0 text-center max-md:mb-2 max-md:mt-1 sm:mb-5 sm:mt-3 md:mt-4">
                       <DialogPrimitive.Title className="bg-gradient-to-b from-white to-slate-300 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
                         {CTA_LABEL}
                       </DialogPrimitive.Title>
@@ -640,8 +696,9 @@ function QuoteModalContent({
                       <div className="mx-auto mt-2.5 h-px w-14 bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
                     </div>
 
-                    <div className="flex min-h-0 flex-1 flex-col justify-start overflow-hidden pt-1 max-md:touch-pan-y md:overflow-y-auto md:overscroll-contain md:[scrollbar-width:thin] md:[scrollbar-color:rgba(249,115,22,0.35)_transparent]">
+                    <div className="flex min-h-0 flex-1 flex-col justify-start pt-1 max-md:overflow-y-auto max-md:overscroll-contain max-md:[scrollbar-width:none] md:overflow-y-auto md:overscroll-contain md:[scrollbar-width:thin] md:[scrollbar-color:rgba(249,115,22,0.35)_transparent]">
                       <QuoteShieldForm
+                        onLayoutChange={handleFormLayoutChange}
                         onSuccess={(num) => {
                           setConfirmation(num)
                           setSubmitted(true)
