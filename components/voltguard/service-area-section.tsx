@@ -7,7 +7,7 @@ export function ServiceAreaSection() {
   return (
     <section
       id="service-area"
-      className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-2 pb-10 md:pb-8 overflow-hidden"
+      className="relative scroll-mt-28 md:scroll-mt-20 -mt-6 md:-mt-12 pt-0 pb-8 md:pb-4 overflow-hidden"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-30"

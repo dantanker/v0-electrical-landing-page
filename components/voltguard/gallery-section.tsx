@@ -153,7 +153,7 @@ export function GallerySection() {
 
   return (
     <>
-      <section id="gallery" className="relative scroll-mt-28 md:scroll-mt-20 pt-2 pb-6 md:py-8">
+      <section id="gallery" className="relative scroll-mt-28 md:scroll-mt-20 pt-2 pb-0 md:pt-5 md:pb-0">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 md:mb-7">
             <FadeInUp delay={0}>
@@ -200,7 +200,7 @@ export function GallerySection() {
           </div>
         </div>
 
-        <div className="mt-6 md:mt-8">
+        <div className="mt-4 md:mt-3">
           <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 gap-3">
               <MobileGalleryPhoto

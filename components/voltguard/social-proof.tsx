@@ -136,7 +136,7 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
 
 export function SocialProof() {
   return (
-    <section id="testimonials" className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-6 pb-8 md:pb-0">
+    <section id="testimonials" className="relative scroll-mt-28 md:scroll-mt-20 -mt-4 md:-mt-8 pt-0 pb-4 md:pb-0">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop */}
         <div className="hidden lg:block">
@@ -146,14 +146,14 @@ export function SocialProof() {
           >
             {(isHidden) => (
               <>
-                <ScrollObserver.TriggerGroup className="pb-[50vh]">
+                <ScrollObserver.TriggerGroup className="pb-[12vh]">
                   {TESTIMONIALS.map((testimonial, index) => (
                     <ScrollObserver.Trigger
                       id={`review-${testimonial.id}`}
                       key={testimonial.id}
                       className={clsx(
-                        "relative min-h-screen flex items-center justify-center",
-                        index > 0 && "scroll-mt-[50vh]"
+                        "relative min-h-[80vh] flex items-center justify-center",
+                        index > 0 && "scroll-mt-[30vh]"
                       )}
                     >
                       {(isActive) => (

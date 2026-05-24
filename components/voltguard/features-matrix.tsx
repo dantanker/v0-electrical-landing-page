@@ -4,11 +4,14 @@ import { WhyUsAccordion } from "./why-us-accordion"
 
 export function FeaturesMatrix() {
   return (
-    <section id="why-us" className="relative pt-16 md:pt-24 pb-4 md:pb-6 scroll-mt-28 md:scroll-mt-20">
+    <section id="why-us" className="relative pt-12 md:pt-20 pb-4 md:pb-6 scroll-mt-28 md:scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 md:mb-12">
+        <div className="text-center mb-6 md:mb-8">
           <FadeInUp delay={0}>
-            <h2 className="mb-4">
+            <p className="text-sm font-semibold uppercase tracking-widest text-orange-500 mb-2">
+              Why Us
+            </p>
+            <h2 className="mb-3">
               <ShinyHeading
                 text="Why Chicago Chooses VoltGuard"
                 className="text-2xl sm:text-3xl font-bold"

@@ -11,10 +11,11 @@ import { PHONE_NUMBER } from "@/lib/constants"
 const navItems = [
   { label: "Why Us", href: "#why-us" },
   { label: "Services", href: "#services" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Locations", href: "#service-area" },
   { label: "FAQs", href: "#faq" },
-]
+] as const
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -50,7 +51,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <Navigation
             as="nav"
-            className="hidden md:block relative mx-auto rounded-2xl bg-white/10 p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.65)] backdrop-blur-sm"
+            className="hidden md:block relative mx-auto max-w-full rounded-2xl bg-white/10 p-1 shadow-[0_4px_20px_rgba(0,0,0,0.65)] backdrop-blur-sm"
             aria-label="Main navigation"
           >
             {({ ready, size, position, duration }) => (
@@ -69,8 +70,8 @@ export function Header() {
                   )}
                 />
 
-                <Navigation.List as="ul" className="relative flex items-center gap-1">
-                  {navItems.map((item, index) => (
+                <Navigation.List as="ul" className="relative flex items-center gap-0.5 lg:gap-1">
+                  {navItems.map((item) => (
                     <Navigation.Item
                       key={item.href}
                       as="li"
@@ -82,7 +83,7 @@ export function Header() {
                           onClick={setActive}
                           className={clsx(
                             isActive ? "text-white" : "text-white/70 hover:text-white",
-                            "inline-block px-4 py-1.5 text-sm font-medium transition-colors [text-shadow:0_2px_8px_rgba(0,0,0,0.9)]"
+                            "inline-block whitespace-nowrap px-2.5 py-1.5 text-[13px] font-medium transition-colors lg:px-3.5 lg:text-sm [text-shadow:0_2px_8px_rgba(0,0,0,0.9)]"
                           )}
                         >
                           {item.label}

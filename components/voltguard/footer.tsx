@@ -107,8 +107,11 @@ export function Footer() {
 
   return (
     <>
-      <div className="relative z-10 border-t border-slate-800/80 py-5 md:py-3">
+      <div className="relative z-10 border-t border-slate-800/80 py-5 md:py-4">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-xl sm:text-2xl font-bold text-white mb-4">
+            {SITE_HEADLINE}
+          </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2">
             <SpotlightButton
               href={PHONE_LINK}
