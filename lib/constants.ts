@@ -49,7 +49,7 @@ export const FOOTER_NAV_LINKS = [
 export const SOCIAL_LINKS = [
   {
     label: "Google Reviews",
-    href: "https://google.com/maps",
+    href: SHOP_ADDRESS.mapsUrl,
     shortLabel: "Google",
   },
   {

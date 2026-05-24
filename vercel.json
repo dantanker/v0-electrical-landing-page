@@ -1,3 +1,6 @@
 {
-  "buildCommand": "node .v0/inject-built-with-v0.mjs && next build"
+  "buildCommand": "node .v0/inject-built-with-v0.mjs && next build",
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://voltguard.com"
+  }
 }
