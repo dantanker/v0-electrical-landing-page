@@ -1,10 +1,17 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
+import { ZoomIn } from "lucide-react"
 import { ImageComparison } from "@/components/ImageComparison"
 import { ZoomParallax } from "@/components/ZoomParallax"
 import { ShinyHeading } from "@/components/ShinyText"
 import { FadeInUp } from "@/lib/scroll-animations"
+import {
+  GalleryExpandButton,
+  GalleryLightbox,
+  type GalleryLightboxItem,
+} from "@/components/voltguard/gallery-lightbox"
 
 const GALLERY_ITEMS = [
   {
@@ -72,12 +79,14 @@ function GalleryComparison({
   before,
   after,
   delay,
+  onExpand,
 }: {
   title: string
   subtitle: string
   before: { src: string; alt: string }
   after: { src: string; alt: string }
   delay: number
+  onExpand: () => void
 }) {
   return (
     <FadeInUp delay={delay}>
@@ -90,6 +99,12 @@ function GalleryComparison({
             altAfter={after.alt}
           />
 
+          <GalleryExpandButton
+            label={`View larger: ${title}`}
+            onClick={onExpand}
+            className="absolute bottom-14 right-3 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-slate-950/80 text-white shadow-lg backdrop-blur-sm transition-transform active:scale-95 md:hidden"
+          />
+
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-3 pb-3 pt-10 sm:px-4 sm:pb-4">
             <h3 className="text-sm font-semibold text-white sm:text-base">{title}</h3>
             <p className="mt-0.5 text-xs text-slate-300 leading-snug sm:text-sm">{subtitle}</p>
@@ -100,75 +115,132 @@ function GalleryComparison({
   )
 }
 
-export function GallerySection() {
+function MobileGalleryPhoto({
+  src,
+  alt,
+  title,
+  aspectClass,
+  sizes,
+  onOpen,
+}: {
+  src: string
+  alt: string
+  title?: string
+  aspectClass: string
+  sizes: string
+  onOpen: () => void
+}) {
   return (
-    <section id="gallery" className="relative scroll-mt-28 md:scroll-mt-20 pt-2 pb-6 md:py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-6 md:mb-7">
-          <FadeInUp delay={0}>
-            <p className="text-sm font-semibold uppercase tracking-widest text-orange-500 mb-1.5">
-              Our Work
-            </p>
-            <h2 className="mb-2">
-              <ShinyHeading
-                text="Gallery"
-                className="text-2xl sm:text-3xl font-bold"
-              />
-            </h2>
-          </FadeInUp>
-          <FadeInUp delay={0.1}>
-            <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-              Slide to witness the VoltGuard transformation
-            </p>
-          </FadeInUp>
-        </div>
+    <button
+      type="button"
+      onClick={onOpen}
+      className={`relative ${aspectClass} w-full overflow-hidden rounded-xl shadow-lg ring-1 ring-white/10 transition-transform active:scale-[0.98]`}
+      aria-label={`View larger: ${alt}`}
+    >
+      <Image src={src} alt={alt} fill className="object-cover" sizes={sizes} />
+      <span className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-slate-950/75 text-white ring-1 ring-white/20">
+        <ZoomIn className="h-3.5 w-3.5" aria-hidden />
+      </span>
+      {title ? (
+        <span className="sr-only">{title}</span>
+      ) : null}
+    </button>
+  )
+}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-          {GALLERY_ITEMS.map((item, index) => (
-            <GalleryComparison
-              key={item.id}
-              title={item.title}
-              subtitle={item.subtitle}
-              before={item.before}
-              after={item.after}
-              delay={0.1 + index * 0.06}
-            />
-          ))}
-        </div>
-      </div>
+export function GallerySection() {
+  const [lightboxItem, setLightboxItem] = useState<GalleryLightboxItem | null>(null)
 
-      <div className="mt-6 md:mt-8">
-        <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-xl shadow-xl ring-1 ring-white/10">
-              <Image
-                src={PARALLAX_IMAGES[0].src}
-                alt={PARALLAX_IMAGES[0].alt}
-                fill
-                className="object-cover"
-                sizes="100vw"
-              />
-            </div>
-            {PARALLAX_IMAGES.slice(1).map((image) => (
-              <div
-                key={image.src}
-                className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg ring-1 ring-white/10"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover"
-                  sizes="50vw"
+  return (
+    <>
+      <section id="gallery" className="relative scroll-mt-28 md:scroll-mt-20 pt-2 pb-6 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 md:mb-7">
+            <FadeInUp delay={0}>
+              <p className="text-sm font-semibold uppercase tracking-widest text-orange-500 mb-1.5">
+                Our Work
+              </p>
+              <h2 className="mb-2">
+                <ShinyHeading
+                  text="Gallery"
+                  className="text-2xl sm:text-3xl font-bold"
                 />
-              </div>
+              </h2>
+            </FadeInUp>
+            <FadeInUp delay={0.1}>
+              <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
+                Slide to witness the VoltGuard transformation
+              </p>
+              <p className="mt-1 text-xs text-slate-500 md:hidden">
+                Tap any photo to view it larger
+              </p>
+            </FadeInUp>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            {GALLERY_ITEMS.map((item, index) => (
+              <GalleryComparison
+                key={item.id}
+                title={item.title}
+                subtitle={item.subtitle}
+                before={item.before}
+                after={item.after}
+                delay={0.1 + index * 0.06}
+                onExpand={() =>
+                  setLightboxItem({
+                    type: "comparison",
+                    title: item.title,
+                    subtitle: item.subtitle,
+                    before: item.before,
+                    after: item.after,
+                  })
+                }
+              />
             ))}
           </div>
         </div>
-        <div className="hidden md:block">
-          <ZoomParallax images={[...PARALLAX_IMAGES]} />
+
+        <div className="mt-6 md:mt-8">
+          <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-3">
+              <MobileGalleryPhoto
+                src={PARALLAX_IMAGES[0].src}
+                alt={PARALLAX_IMAGES[0].alt}
+                aspectClass="col-span-2 aspect-[16/10] shadow-xl"
+                sizes="100vw"
+                onOpen={() =>
+                  setLightboxItem({
+                    type: "image",
+                    src: PARALLAX_IMAGES[0].src,
+                    alt: PARALLAX_IMAGES[0].alt,
+                  })
+                }
+              />
+              {PARALLAX_IMAGES.slice(1).map((image) => (
+                <MobileGalleryPhoto
+                  key={image.src}
+                  src={image.src}
+                  alt={image.alt}
+                  aspectClass="aspect-[4/3]"
+                  sizes="50vw"
+                  onOpen={() =>
+                    setLightboxItem({
+                      type: "image",
+                      src: image.src,
+                      alt: image.alt,
+                    })
+                  }
+                />
+              ))}
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <ZoomParallax images={[...PARALLAX_IMAGES]} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <GalleryLightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
+    </>
   )
 }
