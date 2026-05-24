@@ -43,17 +43,43 @@ function PartnerLogoDesktop({
   )
 }
 
+function PartnerLogoMobile({
+  id,
+  label,
+}: {
+  id: (typeof PARTNERS)[number]["id"]
+  label: string
+}) {
+  const [failed, setFailed] = useState(false)
+
+  return (
+    <div className="flex h-8 shrink-0 items-center">
+      {failed ? (
+        <span className="inline-flex h-8 shrink-0 items-center rounded-full border border-slate-700/70 bg-slate-800/60 px-4 text-[11px] font-medium text-slate-300 whitespace-nowrap">
+          {label}
+        </span>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={`/partners/${id}.png`}
+          alt={label}
+          className="partner-logo-mark partner-logo-mark--mobile"
+          draggable={false}
+          loading="eager"
+          decoding="async"
+          onError={() => setFailed(true)}
+        />
+      )}
+    </div>
+  )
+}
+
 function PartnerMarqueeSegment({ mobile = false }: { mobile?: boolean }) {
   return (
     <>
       {PARTNERS.map((partner) =>
         mobile ? (
-          <span
-            key={partner.id}
-            className="partner-marquee-pill inline-flex h-8 shrink-0 items-center rounded-full border border-slate-700/70 bg-slate-800/60 px-4 text-[11px] font-medium text-slate-300 whitespace-nowrap"
-          >
-            {partner.label}
-          </span>
+          <PartnerLogoMobile key={partner.id} id={partner.id} label={partner.label} />
         ) : (
           <PartnerLogoDesktop key={partner.id} id={partner.id} label={partner.label} />
         )

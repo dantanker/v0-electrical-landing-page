@@ -308,7 +308,7 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
     <form
       id={formId}
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-[300px] sm:max-w-[340px]"
+      className="mx-auto w-full max-w-[min(100%,220px)] sm:max-w-[340px]"
     >
       <FieldGroup
         label="Name"
@@ -442,23 +442,25 @@ function QuoteShieldForm({ onSuccess }: { onSuccess: (confirmation: string) => v
         </FieldGroup>
       )}
 
-      <div className="flex flex-col items-center border-t border-slate-700/40 pt-2.5">
+      <div className="flex flex-col items-center border-t border-slate-700/40 pt-2.5 max-md:px-1">
         <SpotlightButton
           type="submit"
           disabled={isSubmitting}
-          className="w-[240px] max-w-full py-2.5 px-4 shadow-lg shadow-orange-500/20"
+          className="w-full max-w-[200px] py-2 px-3 shadow-lg shadow-orange-500/20 max-md:text-sm sm:w-[240px] sm:max-w-full sm:px-4 sm:py-2.5 max-md:hover:scale-100"
         >
           {isSubmitting ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin text-white" />
-              <SpotlightButtonLabel className="text-sm">Sending...</SpotlightButtonLabel>
+              <SpotlightButtonLabel className="text-xs sm:text-sm">Sending...</SpotlightButtonLabel>
             </>
           ) : (
-            <SpotlightButtonLabel className="text-sm">Request My Free Quote</SpotlightButtonLabel>
+            <SpotlightButtonLabel className="text-xs leading-tight sm:text-sm">
+              Request My Free Quote
+            </SpotlightButtonLabel>
           )}
         </SpotlightButton>
 
-        <p className="mt-1.5 text-center text-[10px] leading-snug text-slate-500">
+        <p className="mt-1.5 max-w-[200px] text-center text-[10px] leading-snug text-slate-500 sm:max-w-none">
           No credit card required · We&apos;ll call within 15 minutes
         </p>
       </div>
@@ -545,7 +547,7 @@ function QuoteModalContent({
               </div>
 
               <div
-                className="relative z-10 flex h-full flex-col overflow-hidden px-7 pb-9 pt-9 sm:px-10 sm:pb-12 sm:pt-12 md:px-8 md:pb-11 md:pt-11"
+                className="relative z-10 flex h-full flex-col overflow-hidden px-5 pb-11 pt-8 sm:px-10 sm:pb-12 sm:pt-12 md:px-8 md:pb-11 md:pt-11"
                 style={{ clipPath: `url(#${SHIELD_CLIP_ID})` }}
               >
                 <DialogPrimitive.Close className="absolute right-3.5 top-3.5 z-20 rounded-full border border-slate-600/60 bg-slate-900/90 p-1.5 text-slate-300 transition-colors hover:border-orange-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/40 sm:right-4 sm:top-4">

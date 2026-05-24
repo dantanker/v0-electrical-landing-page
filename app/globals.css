@@ -316,6 +316,7 @@
 
 .partner-marquee-loop--mobile {
   animation-duration: 28s;
+  animation-direction: reverse;
 }
 
 /* Desktop only — soft edge fade */
@@ -353,6 +354,12 @@
 
 .partner-logo-mark:hover {
   opacity: 1;
+}
+
+.partner-logo-mark--mobile {
+  height: 1.75rem;
+  max-width: 6.5rem;
+  opacity: 0.9;
 }
 
 @media (prefers-reduced-motion: reduce) {
