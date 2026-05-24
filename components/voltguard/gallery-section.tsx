@@ -117,7 +117,7 @@ export function GallerySection() {
           </FadeInUp>
           <FadeInUp delay={0.1}>
             <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-              Drag to compare — before on the left, after on the right.
+              Slide to witness the VoltGuard transformation
             </p>
           </FadeInUp>
         </div>

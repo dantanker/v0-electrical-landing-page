@@ -4,9 +4,9 @@ import {
   SpotlightButton,
   SpotlightButtonLabel,
 } from "@/components/SpotlightButton"
-import { CTA_LABEL, QUOTE_FORM_ID } from "@/lib/constants"
-import { trackEvent, EVENTS } from "@/lib/analytics"
+import { CTA_LABEL } from "@/lib/constants"
 import { cn } from "@/lib/utils"
+import { useQuoteModal } from "./quote-modal-provider"
 
 type QuoteCtaButtonProps = {
   location: string
@@ -21,18 +21,16 @@ export function QuoteCtaButton({
   fullWidth = false,
   onAfterClick,
 }: QuoteCtaButtonProps) {
-  const scrollToQuote = () => {
-    trackEvent(EVENTS.CTA_CLICK, { location })
-    const formElement = document.getElementById(QUOTE_FORM_ID)
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth" })
-    }
+  const { openQuoteModal } = useQuoteModal()
+
+  const handleClick = () => {
+    openQuoteModal(location)
     onAfterClick?.()
   }
 
   return (
     <SpotlightButton
-      onClick={scrollToQuote}
+      onClick={handleClick}
       className={cn(fullWidth && "w-full", className)}
     >
       <SpotlightButtonLabel>{CTA_LABEL}</SpotlightButtonLabel>

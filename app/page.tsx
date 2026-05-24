@@ -7,23 +7,26 @@ import { ServicesGrid } from "@/components/voltguard/services-grid"
 import { GallerySection } from "@/components/voltguard/gallery-section"
 import { FAQSection } from "@/components/voltguard/faq-section"
 import { Footer } from "@/components/voltguard/footer"
+import { QuoteModalProvider } from "@/components/voltguard/quote-modal-provider"
 import { AnimatedDarkBackground } from "@/components/AnimatedDarkBackground"
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
-      <AnimatedDarkBackground />
-      <Header />
-      <main className="relative z-10">
-        <HeroSection />
-        <FeaturesMatrix />
-        <ServicesGrid />
-        <GallerySection />
-        <SocialProof />
-        <ServiceAreaSection />
-        <FAQSection />
-      </main>
-      <Footer />
-    </div>
+    <QuoteModalProvider>
+      <div className="relative min-h-screen">
+        <AnimatedDarkBackground />
+        <Header />
+        <main className="relative z-10">
+          <HeroSection />
+          <FeaturesMatrix />
+          <ServicesGrid />
+          <GallerySection />
+          <SocialProof />
+          <ServiceAreaSection />
+          <FAQSection />
+        </main>
+        <Footer />
+      </div>
+    </QuoteModalProvider>
   )
 }

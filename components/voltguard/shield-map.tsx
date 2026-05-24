@@ -9,6 +9,8 @@ import {
 } from "@/lib/service-area-locations"
 
 const SHIELD_CLIP_ID = "voltguard-shield-clip"
+const MAP_SHIELD_PATH =
+  "M150 12 L278 48 L278 188 Q278 278 150 338 Q22 278 22 188 L22 48 Z"
 const LEAFLET_CSS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 const LEAFLET_JS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 const LEAFLET_STYLE_ID = "voltguard-leaflet-css"
@@ -156,16 +158,37 @@ function ShieldMapInner() {
         aria-hidden
       >
         <defs>
-          <linearGradient id="shieldBorderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="shieldBorderGradient"
+            gradientUnits="userSpaceOnUse"
+            x1="150"
+            y1="12"
+            x2="150"
+            y2="338"
+          >
             <stop offset="0%" stopColor="#1e3a8a" />
-            <stop offset="50%" stopColor="#334155" />
-            <stop offset="100%" stopColor="#7c2d12" />
+            <stop offset="100%" stopColor="#f97316" />
+            <animateTransform
+              attributeName="gradientTransform"
+              type="rotate"
+              from="0 150 175"
+              to="360 150 175"
+              dur="8s"
+              repeatCount="indefinite"
+            />
           </linearGradient>
         </defs>
         <path
-          d="M150 12 L278 48 L278 188 Q278 278 150 338 Q22 278 22 188 L22 48 Z"
+          d={MAP_SHIELD_PATH}
           stroke="url(#shieldBorderGradient)"
-          strokeWidth="4"
+          strokeWidth="7"
+          strokeLinejoin="round"
+          opacity="0.35"
+        />
+        <path
+          d={MAP_SHIELD_PATH}
+          stroke="url(#shieldBorderGradient)"
+          strokeWidth="2.5"
           strokeLinejoin="round"
         />
       </svg>
