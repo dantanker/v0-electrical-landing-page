@@ -117,7 +117,7 @@ function ShieldLeafletMap() {
         aria-label="Interactive service area map"
       />
       <div className="pointer-events-none absolute inset-0 z-[400] bg-orange-600/[0.07] mix-blend-soft-light" aria-hidden />
-      <div className="absolute left-[3.75rem] top-[6.5rem] z-[500] flex flex-col gap-1.5">
+      <div className="absolute left-3 top-3 z-[500] flex flex-col gap-1.5 md:left-[3.75rem] md:top-[6.5rem]">
         <button
           type="button"
           onClick={zoomIn}

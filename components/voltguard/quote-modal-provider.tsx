@@ -495,18 +495,21 @@ function QuoteModalContent({
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
           className={cn(
-            "fixed left-1/2 top-1/2 z-50 w-[min(94vw,480px)] -translate-x-1/2 -translate-y-1/2",
+            "fixed left-1/2 z-50 w-[min(94vw,480px)] -translate-x-1/2",
+            "max-md:top-auto max-md:bottom-0 max-md:translate-y-0 max-md:max-h-[92dvh]",
+            "md:top-1/2 md:-translate-y-1/2",
             "border-0 bg-transparent p-0 shadow-none outline-none",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+            "max-md:data-[state=closed]:slide-out-to-bottom max-md:data-[state=open]:slide-in-from-bottom",
             "duration-200"
           )}
           aria-describedby={undefined}
         >
           <ShieldBackdrop />
 
-          <div className="relative mx-auto w-[min(94vw,480px)] aspect-[520/680]">
+          <div className="relative mx-auto w-[min(94vw,480px)] max-md:max-h-[92dvh] max-md:aspect-auto md:aspect-[520/680]">
               <div
                 className="pointer-events-none absolute inset-0 opacity-50 blur-2xl"
                 style={{
@@ -545,7 +548,7 @@ function QuoteModalContent({
               </div>
 
               <div
-                className="relative z-10 flex h-full flex-col overflow-hidden px-8 pb-11 pt-11 sm:px-10 sm:pb-12 sm:pt-12"
+                className="relative z-10 flex h-full max-h-[92dvh] flex-col overflow-hidden px-5 pb-8 pt-8 sm:px-10 sm:pb-12 sm:pt-12 md:px-8 md:pb-11 md:pt-11 md:max-h-none"
                 style={{ clipPath: `url(#${SHIELD_CLIP_ID})` }}
               >
                 <DialogPrimitive.Close className="absolute right-3.5 top-3.5 z-20 rounded-full border border-slate-600/60 bg-slate-900/90 p-1.5 text-slate-300 transition-colors hover:border-orange-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/40 sm:right-4 sm:top-4">

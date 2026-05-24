@@ -13,7 +13,7 @@ import { AnimatedDarkBackground } from "@/components/AnimatedDarkBackground"
 export default function Home() {
   return (
     <QuoteModalProvider>
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen max-md:overflow-x-clip">
         <AnimatedDarkBackground />
         <Header />
         <main className="relative z-10">

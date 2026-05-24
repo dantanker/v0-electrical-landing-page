@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { ImageComparison } from "@/components/ImageComparison"
 import { ZoomParallax } from "@/components/ZoomParallax"
 import { ShinyHeading } from "@/components/ShinyText"
@@ -137,7 +138,36 @@ export function GallerySection() {
       </div>
 
       <div className="mt-6 md:mt-8">
-        <ZoomParallax images={[...PARALLAX_IMAGES]} />
+        <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-xl shadow-xl ring-1 ring-white/10">
+              <Image
+                src={PARALLAX_IMAGES[0].src}
+                alt={PARALLAX_IMAGES[0].alt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+            {PARALLAX_IMAGES.slice(1).map((image) => (
+              <div
+                key={image.src}
+                className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg ring-1 ring-white/10"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="50vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="hidden md:block">
+          <ZoomParallax images={[...PARALLAX_IMAGES]} />
+        </div>
       </div>
     </section>
   )

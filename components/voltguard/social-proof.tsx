@@ -86,7 +86,7 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
         compact ? "pt-3" : "border-t border-slate-800 pt-6 mt-8"
       )}
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-col items-center gap-4 max-md:gap-3 md:flex-row md:items-center md:justify-between md:gap-3">
         <ReviewSourceBadge source={google} align="left" />
 
         <div className="min-w-0 flex-1 text-center">
@@ -122,7 +122,7 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
 
 export function SocialProof() {
   return (
-    <section id="testimonials" className="relative pt-4 md:pt-6 pb-0">
+    <section id="testimonials" className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-6 pb-0">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop */}
         <div className="hidden lg:block">

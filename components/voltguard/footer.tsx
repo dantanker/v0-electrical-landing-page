@@ -125,14 +125,14 @@ export function Footer() {
         </div>
       </div>
 
-      <footer id="contact" className="relative z-10 scroll-mt-20 pt-5 pb-4">
+      <footer id="contact" className="relative z-10 scroll-mt-28 md:scroll-mt-20 pt-5 pb-4">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="border-b border-slate-800 pb-5 mb-5">
             <PartnerMarqueeInline />
           </div>
 
           {/* Info grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-4 mb-4">
+          <div className="grid grid-cols-1 gap-y-5 sm:grid-cols-2 lg:grid-cols-4 mb-4">
             <div className="col-span-2 lg:col-span-1">
               <Image
                 src="/voltguard-logo-white-no-tagline.png"
@@ -206,7 +206,7 @@ export function Footer() {
               </p>
             </div>
 
-            <div id="licenses" className="scroll-mt-20">
+            <div id="licenses" className="scroll-mt-28 md:scroll-mt-20">
               <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1">
                 <Shield className="h-3 w-3 text-orange-400" />
                 Licenses

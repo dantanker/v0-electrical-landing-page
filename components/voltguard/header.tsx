@@ -42,7 +42,7 @@ export function Header() {
               alt="VoltGuard Electrical"
               width={420}
               height={128}
-              className="h-32 w-auto object-contain"
+              className="h-20 w-auto object-contain md:h-32"
               priority
             />
           </button>

@@ -7,11 +7,9 @@ import { SITE_SUBHEADLINE } from "@/lib/constants"
 export function HeroSection() {
   return (
     <section 
-      className="pt-36 pb-24 md:pt-40 md:pb-28 bg-cover bg-top bg-no-repeat relative min-h-screen flex items-center"
+      className="pt-28 pb-32 md:pt-40 md:pb-28 bg-cover bg-top bg-no-repeat bg-scroll md:bg-fixed relative min-h-[100svh] md:min-h-screen flex items-center"
       style={{
         backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/voltguard-dining-lights.jpg-NZWgi2FngoerMeUntpgXL0mqKOpqa6.png)',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
       }}
     >
       {/* Dark overlay for text contrast */}
@@ -24,7 +22,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <FadeInUp delay={0.1}>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-100 leading-relaxed whitespace-nowrap">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-100 leading-relaxed max-md:text-balance md:whitespace-nowrap">
               {SITE_SUBHEADLINE}
             </p>
           </FadeInUp>

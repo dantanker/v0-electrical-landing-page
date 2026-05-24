@@ -1,17 +1,27 @@
 "use client"
 
-import { useRef, useEffect, useCallback } from "react"
+import { useRef, useEffect, useCallback, useState } from "react"
 import Image from "next/image"
 import { SERVICES } from "@/lib/constants"
 
-const CARD_WIDTH = 280
-const CARD_GAP = 28
-const STRIDE = CARD_WIDTH + CARD_GAP
+const DESKTOP_CARD_WIDTH = 280
+const DESKTOP_CARD_GAP = 28
 const SERVICE_COUNT = SERVICES.length
-const SET_WIDTH = SERVICE_COUNT * STRIDE
 
 /** Three copies for seamless infinite scroll */
 const galleryServices = [...SERVICES, ...SERVICES, ...SERVICES]
+
+function getGalleryDimensions(containerWidth: number) {
+  const isDesktop = containerWidth >= 768
+  const cardWidth = isDesktop
+    ? DESKTOP_CARD_WIDTH
+    : Math.min(DESKTOP_CARD_WIDTH, Math.max(220, Math.round(containerWidth * 0.72)))
+  const cardGap = isDesktop ? DESKTOP_CARD_GAP : 20
+  const stride = cardWidth + cardGap
+  const setWidth = SERVICE_COUNT * stride
+
+  return { cardWidth, cardGap, stride, setWidth }
+}
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t
@@ -22,8 +32,11 @@ export function ServicesArcGallery() {
   const trackRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<(HTMLElement | null)[]>([])
 
-  const currentX = useRef(SET_WIDTH)
-  const targetX = useRef(SET_WIDTH)
+  const dimsRef = useRef(getGalleryDimensions(375))
+  const [dims, setDims] = useState(getGalleryDimensions(375))
+
+  const currentX = useRef(dimsRef.current.setWidth)
+  const targetX = useRef(dimsRef.current.setWidth)
   const isDragging = useRef(false)
   const dragStartX = useRef(0)
   const dragStartOffset = useRef(0)
@@ -33,13 +46,14 @@ export function ServicesArcGallery() {
   const rafId = useRef(0)
 
   const normalizeScroll = useCallback(() => {
-    while (targetX.current >= SET_WIDTH * 2) {
-      targetX.current -= SET_WIDTH
-      currentX.current -= SET_WIDTH
+    const { setWidth } = dimsRef.current
+    while (targetX.current >= setWidth * 2) {
+      targetX.current -= setWidth
+      currentX.current -= setWidth
     }
-    while (targetX.current < SET_WIDTH) {
-      targetX.current += SET_WIDTH
-      currentX.current += SET_WIDTH
+    while (targetX.current < setWidth) {
+      targetX.current += setWidth
+      currentX.current += setWidth
     }
   }, [])
 
@@ -47,13 +61,14 @@ export function ServicesArcGallery() {
     const container = containerRef.current
     if (!container) return
 
+    const { cardWidth: width, stride } = dimsRef.current
     const containerWidth = container.clientWidth
     const centerX = containerWidth / 2
-    const paddingLeft = centerX - CARD_WIDTH / 2
+    const paddingLeft = centerX - width / 2
 
     cardsRef.current.forEach((card, index) => {
       if (!card) return
-      const cardCenter = paddingLeft + index * STRIDE + CARD_WIDTH / 2 - scrollX
+      const cardCenter = paddingLeft + index * stride + width / 2 - scrollX
       const offset = cardCenter - centerX
       const norm = Math.max(-1, Math.min(1, offset / centerX))
 
@@ -75,6 +90,25 @@ export function ServicesArcGallery() {
     },
     [updateCardTransforms]
   )
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const syncDimensions = () => {
+      const next = getGalleryDimensions(container.clientWidth)
+      dimsRef.current = next
+      setDims(next)
+      normalizeScroll()
+      applyTrackPosition(currentX.current)
+    }
+
+    syncDimensions()
+    const ro = new ResizeObserver(syncDimensions)
+    ro.observe(container)
+
+    return () => ro.disconnect()
+  }, [applyTrackPosition, normalizeScroll])
 
   useEffect(() => {
     const tick = () => {
@@ -99,13 +133,7 @@ export function ServicesArcGallery() {
     rafId.current = requestAnimationFrame(tick)
     applyTrackPosition(currentX.current)
 
-    const onResize = () => applyTrackPosition(currentX.current)
-    window.addEventListener("resize", onResize)
-
-    return () => {
-      cancelAnimationFrame(rafId.current)
-      window.removeEventListener("resize", onResize)
-    }
+    return () => cancelAnimationFrame(rafId.current)
   }, [applyTrackPosition, normalizeScroll])
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -157,10 +185,12 @@ export function ServicesArcGallery() {
     velocity.current = 0
   }
 
+  const { cardWidth, cardGap } = dims
+
   return (
     <div
       ref={containerRef}
-      className="services-arc-gallery relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      className="services-arc-gallery relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y max-md:overscroll-contain"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -171,11 +201,12 @@ export function ServicesArcGallery() {
     >
       <div
         ref={trackRef}
-        className="flex h-full items-start gap-7 py-3 md:py-4 will-change-transform"
+        className="flex h-full items-start gap-5 py-3 will-change-transform md:gap-7 md:py-4"
         style={{
           width: "max-content",
-          paddingLeft: `calc(50% - ${CARD_WIDTH / 2}px)`,
-          paddingRight: `calc(50% - ${CARD_WIDTH / 2}px)`,
+          paddingLeft: `calc(50% - ${cardWidth / 2}px)`,
+          paddingRight: `calc(50% - ${cardWidth / 2}px)`,
+          columnGap: cardGap,
         }}
       >
         {galleryServices.map((service, index) => (
@@ -185,19 +216,19 @@ export function ServicesArcGallery() {
               cardsRef.current[index] = el
             }}
             className="flex shrink-0 flex-col items-center will-change-transform pointer-events-none"
-            style={{ width: CARD_WIDTH }}
+            style={{ width: cardWidth }}
           >
-            <div className="relative w-full h-[320px] sm:h-[380px] md:h-[420px] overflow-hidden rounded-xl">
+            <div className="relative w-full h-[260px] sm:h-[320px] md:h-[420px] overflow-hidden rounded-xl">
               <Image
                 src={service.image}
                 alt={service.title}
                 fill
                 draggable={false}
                 className="object-cover pointer-events-none select-none"
-                sizes="280px"
+                sizes="(max-width: 767px) 72vw, 280px"
               />
             </div>
-            <h3 className="mt-4 w-full text-center text-base sm:text-lg font-semibold text-white leading-snug px-1">
+            <h3 className="mt-3 w-full text-center text-sm sm:text-base md:text-lg font-semibold text-white leading-snug px-1 md:mt-4">
               {service.title}
             </h3>
           </article>
