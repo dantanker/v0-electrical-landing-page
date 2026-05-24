@@ -44,6 +44,23 @@ function ShieldLeafletMap() {
   }, [])
 
   useEffect(() => {
+    if (leafletReady || typeof window === "undefined") return
+    if (window.L) {
+      setLeafletReady(true)
+      return
+    }
+
+    const intervalId = window.setInterval(() => {
+      if (window.L) {
+        setLeafletReady(true)
+        window.clearInterval(intervalId)
+      }
+    }, 50)
+
+    return () => window.clearInterval(intervalId)
+  }, [leafletReady])
+
+  useEffect(() => {
     if (!leafletReady || !containerRef.current || !window.L || mapRef.current) {
       return
     }
@@ -111,6 +128,19 @@ function ShieldLeafletMap() {
     const container = containerRef.current
     if (!container || !leafletReady) return
 
+    const resizeObserver = new ResizeObserver(() => {
+      fitMapToZone()
+    })
+
+    resizeObserver.observe(container)
+
+    return () => resizeObserver.disconnect()
+  }, [leafletReady, fitMapToZone])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container || !leafletReady) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -144,7 +174,7 @@ function ShieldLeafletMap() {
         aria-label="Interactive service area map"
       />
       <div className="pointer-events-none absolute inset-0 z-[400] bg-orange-600/[0.07] mix-blend-soft-light" aria-hidden />
-      <div className="absolute left-3 top-3 z-[500] flex flex-col gap-1.5 md:left-[3.75rem] md:top-[6.5rem]">
+      <div className="absolute left-3 top-3 z-[500] hidden flex-col gap-1.5 md:left-[3.75rem] md:top-[6.5rem] md:flex">
         <button
           type="button"
           onClick={zoomIn}

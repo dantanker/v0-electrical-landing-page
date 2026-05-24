@@ -1,7 +1,7 @@
 import { ShinyHeading } from "@/components/ShinyText"
 import { ShieldMap } from "@/components/voltguard/shield-map"
 import { ServiceAreaCards } from "@/components/voltguard/service-area-cards"
-import { FadeInUp, SlideInLeft, SlideInRight } from "@/lib/scroll-animations"
+import { FadeInUp, SlideInLeft } from "@/lib/scroll-animations"
 
 export function ServiceAreaSection() {
   return (
@@ -39,31 +39,25 @@ export function ServiceAreaSection() {
           </FadeInUp>
         </div>
 
-        {/* Mobile — stacked, no slide animations */}
-        <div className="space-y-8 md:hidden">
-          <FadeInUp delay={0.15}>
-            <div className="mx-auto w-full max-w-[300px]">
+        <div className="flex flex-col gap-8 md:grid lg:grid-cols-2 lg:gap-10 items-center">
+          <FadeInUp delay={0.15} className="order-1 md:order-2 w-full flex justify-center lg:justify-end">
+            <div className="mx-auto w-full max-w-[300px] md:max-w-none">
               <ShieldMap />
             </div>
           </FadeInUp>
-          <FadeInUp delay={0.2}>
-            <ServiceAreaCards />
-          </FadeInUp>
-        </div>
 
-        {/* Desktop — side by side */}
-        <div className="hidden md:grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
-          <SlideInLeft delay={0.15}>
-            <div className="min-w-0 w-full">
-              <ServiceAreaCards />
+          <div className="order-2 md:order-1 w-full min-w-0">
+            <div className="md:hidden">
+              <FadeInUp delay={0.2}>
+                <ServiceAreaCards />
+              </FadeInUp>
             </div>
-          </SlideInLeft>
-
-          <SlideInRight delay={0.2}>
-            <div className="min-w-0 w-full flex justify-center lg:justify-end">
-              <ShieldMap />
+            <div className="hidden md:block">
+              <SlideInLeft delay={0.15}>
+                <ServiceAreaCards />
+              </SlideInLeft>
             </div>
-          </SlideInRight>
+          </div>
         </div>
       </div>
     </section>
