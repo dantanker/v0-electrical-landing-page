@@ -16,6 +16,8 @@ import {
   SITE_HEADLINE,
   SITE_SUBHEADLINE,
   FOOTER_NAV_LINKS,
+  FOOTER_CTA_PREFIX,
+  FOOTER_CTA_SUFFIX,
   FOOTER_LICENSES,
   SHOP_ADDRESS,
   SOCIAL_LINKS,
@@ -107,11 +109,24 @@ export function Footer() {
 
   return (
     <>
-      <div className="relative z-10 border-t border-slate-800/80 py-5 md:py-4">
+      <div className="relative z-10 border-t border-slate-800/80 py-6 md:py-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xl sm:text-2xl font-bold text-white mb-4">
-            {SITE_HEADLINE}
-          </p>
+          <div
+            className="mb-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xl font-semibold leading-none text-white sm:mb-6 sm:gap-x-2.5 sm:text-2xl"
+            aria-label={`${FOOTER_CTA_PREFIX} VoltGuard ${FOOTER_CTA_SUFFIX}`}
+          >
+            <span>{FOOTER_CTA_PREFIX}</span>
+            <span className="relative inline-flex h-[1.12em] max-h-[2.125rem] shrink-0 translate-y-[0.08em] items-center sm:max-h-[2.375rem] sm:translate-y-[0.06em]">
+              <Image
+                src="/voltguard-logo-wordmark.png"
+                alt="VoltGuard"
+                width={869}
+                height={195}
+                className="h-full w-auto object-contain object-center"
+              />
+            </span>
+            <span>{FOOTER_CTA_SUFFIX}</span>
+          </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2">
             <SpotlightButton
               href={PHONE_LINK}
@@ -140,10 +155,10 @@ export function Footer() {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 lg:grid-cols-4 lg:gap-y-5 mb-6 md:mb-4">
             <div className="flex flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1">
               <Image
-                src="/voltguard-logo-white-no-tagline.png"
+                src="/voltguard-logo-wordmark.png"
                 alt="VoltGuard Electrical"
-                width={240}
-                height={72}
+                width={869}
+                height={195}
                 className="h-11 w-auto object-contain mb-3"
               />
               <p className="text-sm font-semibold text-white mb-1">{SITE_HEADLINE}</p>

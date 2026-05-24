@@ -5,6 +5,8 @@ export const SITE_HEADLINE = "Power Done Right"
 export const SITE_SUBHEADLINE =
   "Safely powering Chicagoland homes and businesses for 20+ years."
 export const CTA_LABEL = "Get Your Free Quote"
+export const FOOTER_CTA_PREFIX = "Join the"
+export const FOOTER_CTA_SUFFIX = "Team"
 export const QUOTE_FORM_ID = "quote-form"
 
 export const SERVICE_AREA_ZIPS = ["60004", "60005", "60056", "60173", "60193"]

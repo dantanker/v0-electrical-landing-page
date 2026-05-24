@@ -39,10 +39,10 @@ export function Header() {
             aria-label="VoltGuard — go to top"
           >
             <Image
-              src="/voltguard-logo-white-no-tagline.png"
+              src="/voltguard-logo-wordmark.png"
               alt="VoltGuard Electrical"
-              width={420}
-              height={128}
+              width={869}
+              height={195}
               className="h-[4.25rem] w-auto max-w-full object-contain sm:h-20 md:h-32"
               priority
             />
