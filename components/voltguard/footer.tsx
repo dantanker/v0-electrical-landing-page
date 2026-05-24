@@ -130,7 +130,7 @@ export function Footer() {
         className="relative z-10 scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 bg-slate-950/40 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:bg-transparent md:pb-4"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-5">
-          <div className="mb-6 overflow-hidden border-b border-slate-800 pb-6 md:mb-5 md:pb-5">
+          <div className="mb-5 overflow-hidden border-b border-slate-800 pb-5 md:mb-5 md:pb-5">
             <PartnerMarqueeInline />
           </div>
 

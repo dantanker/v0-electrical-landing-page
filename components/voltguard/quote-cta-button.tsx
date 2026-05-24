@@ -11,6 +11,8 @@ import { useQuoteModal } from "./quote-modal-provider"
 type QuoteCtaButtonProps = {
   location: string
   className?: string
+  labelClassName?: string
+  label?: string
   fullWidth?: boolean
   onAfterClick?: () => void
 }
@@ -18,6 +20,8 @@ type QuoteCtaButtonProps = {
 export function QuoteCtaButton({
   location,
   className,
+  labelClassName,
+  label,
   fullWidth = false,
   onAfterClick,
 }: QuoteCtaButtonProps) {
@@ -33,7 +37,9 @@ export function QuoteCtaButton({
       onClick={handleClick}
       className={cn(fullWidth && "w-full", className)}
     >
-      <SpotlightButtonLabel>{CTA_LABEL}</SpotlightButtonLabel>
+      <SpotlightButtonLabel className={labelClassName}>
+        {label ?? CTA_LABEL}
+      </SpotlightButtonLabel>
     </SpotlightButton>
   )
 }

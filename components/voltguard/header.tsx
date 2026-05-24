@@ -30,11 +30,11 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/75 via-black/45 to-transparent pb-3">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 [filter:drop-shadow(0_4px_12px_rgba(0,0,0,0.85))]">
-        <div className="flex items-center justify-between h-auto py-2 gap-4">
+        <div className="flex items-center justify-between gap-2 min-w-0 py-2 md:gap-4">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center group shrink-0 [filter:drop-shadow(0_2px_10px_rgba(0,0,0,0.9))]"
+            className="flex min-w-0 max-w-[46%] shrink items-center group [filter:drop-shadow(0_2px_10px_rgba(0,0,0,0.9))] sm:max-w-none"
             aria-label="VoltGuard — go to top"
           >
             <Image
@@ -42,7 +42,7 @@ export function Header() {
               alt="VoltGuard Electrical"
               width={420}
               height={128}
-              className="h-20 w-auto object-contain md:h-32"
+              className="h-[4.25rem] w-auto max-w-full object-contain sm:h-20 md:h-32"
               priority
             />
           </button>
@@ -106,16 +106,16 @@ export function Header() {
           </div>
 
           {/* Mobile CTA + Menu */}
-          <div className="md:hidden flex items-center gap-2 shrink-0">
-            <div className="[filter:drop-shadow(0_4px_14px_rgba(0,0,0,0.85))]">
-              <QuoteCtaButton
-                location="header-mobile-bar"
-                className="h-9 px-3 text-[11px] sm:h-10 sm:px-4 sm:text-xs"
-              />
-            </div>
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
+            <QuoteCtaButton
+              location="header-mobile-bar"
+              label="Free Quote"
+              labelClassName="!mt-0 text-[11px] font-semibold leading-none sm:text-xs"
+              className="h-9 min-h-9 shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 shadow-md sm:h-10 sm:px-3.5"
+            />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-white hover:text-white transition-colors shrink-0 [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.9))]"
+              className="flex h-9 w-9 shrink-0 items-center justify-center text-white transition-colors [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.9))] sm:h-10 sm:w-10"
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
