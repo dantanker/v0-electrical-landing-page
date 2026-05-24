@@ -1,7 +1,7 @@
 import { ShinyHeading } from "@/components/ShinyText"
 import { ShieldMap } from "@/components/voltguard/shield-map"
 import { ServiceAreaCards } from "@/components/voltguard/service-area-cards"
-import { FadeInUp, SlideInLeft } from "@/lib/scroll-animations"
+import { FadeInUp, SlideInRight } from "@/lib/scroll-animations"
 
 export function ServiceAreaSection() {
   return (
@@ -39,23 +39,23 @@ export function ServiceAreaSection() {
           </FadeInUp>
         </div>
 
-        <div className="flex flex-col gap-8 md:grid lg:grid-cols-2 lg:gap-10 items-center">
-          <FadeInUp delay={0.15} className="order-1 md:order-2 w-full flex justify-center lg:justify-end">
-            <div className="mx-auto w-full max-w-[300px] md:max-w-none">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:gap-10 lg:items-center">
+          <FadeInUp delay={0.15} className="order-1 w-full self-stretch">
+            <div className="mx-auto flex w-full max-w-[300px] justify-center lg:max-w-none lg:justify-start">
               <ShieldMap />
             </div>
           </FadeInUp>
 
-          <div className="order-2 md:order-1 w-full min-w-0">
-            <div className="md:hidden">
+          <div className="order-2 w-full min-w-0">
+            <div className="lg:hidden">
               <FadeInUp delay={0.2}>
                 <ServiceAreaCards />
               </FadeInUp>
             </div>
-            <div className="hidden md:block">
-              <SlideInLeft delay={0.15}>
+            <div className="hidden lg:block">
+              <SlideInRight delay={0.2}>
                 <ServiceAreaCards />
-              </SlideInLeft>
+              </SlideInRight>
             </div>
           </div>
         </div>
