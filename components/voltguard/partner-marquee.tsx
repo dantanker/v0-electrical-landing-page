@@ -27,16 +27,22 @@ function PartnerLogo({
   )
 }
 
-function PartnerMarqueeTrack() {
+function PartnerMarqueeTrack({ edgeToEdge = false }: { edgeToEdge?: boolean }) {
   const track = [...PARTNERS, ...PARTNERS, ...PARTNERS]
 
   return (
-    <div className="partner-marquee-mask overflow-hidden px-4">
-      <div className="partner-marquee-track flex w-max items-center gap-8 md:gap-12">
+    <div
+      className={
+        edgeToEdge
+          ? "partner-marquee-mask w-full min-w-0 overflow-hidden"
+          : "partner-marquee-mask w-full min-w-0 overflow-hidden px-4"
+      }
+    >
+      <div className="partner-marquee-track flex w-max items-center gap-6 md:gap-12">
         {track.map((partner, index) => (
           <div
             key={`${partner.id}-${index}`}
-            className="flex h-8 shrink-0 items-center md:h-9"
+            className="flex h-7 shrink-0 items-center md:h-9"
           >
             <PartnerLogo id={partner.id} label={partner.label} />
           </div>
@@ -46,17 +52,32 @@ function PartnerMarqueeTrack() {
   )
 }
 
+/** Desktop hero — pinned to bottom of hero image */
 export function PartnerMarquee() {
   return (
     <div
-      className="relative z-20 w-full bg-transparent max-md:mt-2 max-md:border-t max-md:border-white/10 md:absolute md:bottom-0 md:left-0 md:right-0"
+      className="absolute bottom-0 left-0 right-0 z-20 hidden bg-transparent md:block"
       aria-label="Partner company logos"
     >
-      <div className="py-4 md:py-6">
-        <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 md:hidden">
+      <div className="py-5 md:py-6">
+        <PartnerMarqueeTrack />
+      </div>
+    </div>
+  )
+}
+
+/** Mobile — full-width strip directly below hero */
+export function PartnerMarqueeBelowHero() {
+  return (
+    <div
+      className="relative z-10 border-y border-slate-800/80 bg-slate-950/95 md:hidden"
+      aria-label="Partner company logos"
+    >
+      <div className="py-4">
+        <p className="mb-3 px-4 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
           Trusted Partners & Affiliates
         </p>
-        <PartnerMarqueeTrack />
+        <PartnerMarqueeTrack edgeToEdge />
       </div>
     </div>
   )
@@ -75,11 +96,13 @@ export function PartnerMarqueeStrip() {
 
 export function PartnerMarqueeInline() {
   return (
-    <div aria-label="Partner company logos">
-      <p className="mb-2 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+    <div aria-label="Partner company logos" className="w-full min-w-0">
+      <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 max-md:px-2">
         Trusted Partners & Affiliates
       </p>
-      <PartnerMarqueeTrack />
+      <div className="w-full min-w-0 overflow-hidden max-md:-mx-4 max-md:w-[calc(100%+2rem)] sm:mx-0 sm:w-full">
+        <PartnerMarqueeTrack edgeToEdge />
+      </div>
     </div>
   )
 }

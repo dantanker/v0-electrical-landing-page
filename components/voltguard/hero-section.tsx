@@ -7,7 +7,7 @@ import { SITE_SUBHEADLINE } from "@/lib/constants"
 export function HeroSection() {
   return (
     <section 
-      className="pt-28 pb-0 md:pt-40 md:pb-28 bg-cover bg-top bg-no-repeat bg-scroll md:bg-fixed relative max-md:flex max-md:flex-col md:min-h-[100svh] md:min-h-screen md:flex md:items-center"
+      className="pt-28 pb-8 md:pt-40 md:pb-28 bg-cover bg-top bg-no-repeat bg-scroll md:bg-fixed relative md:min-h-[100svh] md:min-h-screen md:flex md:items-center"
       style={{
         backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/voltguard-dining-lights.jpg-NZWgi2FngoerMeUntpgXL0mqKOpqa6.png)',
       }}
@@ -15,7 +15,7 @@ export function HeroSection() {
       {/* Dark overlay for text contrast */}
       <div className="absolute inset-0 bg-black/50"></div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full max-md:flex-1 max-md:flex max-md:flex-col max-md:justify-center max-md:py-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-4 md:py-0">
         <div className="max-w-3xl space-y-6">
           {/* Headline */}
           <HeroHeadline />

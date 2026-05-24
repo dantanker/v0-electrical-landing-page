@@ -1,5 +1,6 @@
 import { Header } from "@/components/voltguard/header"
 import { HeroSection } from "@/components/voltguard/hero-section"
+import { PartnerMarqueeBelowHero } from "@/components/voltguard/partner-marquee"
 import { FeaturesMatrix } from "@/components/voltguard/features-matrix"
 import { SocialProof } from "@/components/voltguard/social-proof"
 import { ServiceAreaSection } from "@/components/voltguard/service-area-section"
@@ -18,6 +19,7 @@ export default function Home() {
         <Header />
         <main className="relative z-10">
           <HeroSection />
+          <PartnerMarqueeBelowHero />
           <FeaturesMatrix />
           <ServicesGrid />
           <GallerySection />

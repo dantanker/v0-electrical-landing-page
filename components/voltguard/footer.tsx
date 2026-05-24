@@ -107,9 +107,9 @@ export function Footer() {
 
   return (
     <>
-      <div className="relative z-10 py-3">
+      <div className="relative z-10 py-4 max-md:px-0 md:py-3">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2">
             <SpotlightButton
               href={PHONE_LINK}
               onClick={handlePhoneClick}
@@ -125,9 +125,9 @@ export function Footer() {
         </div>
       </div>
 
-      <footer id="contact" className="relative z-10 scroll-mt-28 md:scroll-mt-20 pt-5 pb-4">
+      <footer id="contact" className="relative z-10 scroll-mt-28 md:scroll-mt-20 pt-5 pb-[max(1rem,env(safe-area-inset-bottom))] max-md:pb-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="border-b border-slate-800 pb-5 mb-5">
+          <div className="mb-5 overflow-hidden border-b border-slate-800 pb-5 max-md:pb-4">
             <PartnerMarqueeInline />
           </div>
 
@@ -222,11 +222,16 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 border-t border-slate-800 pt-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[11px] text-slate-500">
-              &copy; {new Date().getFullYear()} VoltGuard Electrical · {SHOP_ADDRESS.full}
+          <div className="flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11px] text-slate-500 text-center leading-relaxed sm:text-left">
+              &copy; {new Date().getFullYear()} VoltGuard Electrical
+              <span className="max-md:hidden"> · {SHOP_ADDRESS.full}</span>
+              <span className="md:hidden">
+                <br />
+                {SHOP_ADDRESS.city}, {SHOP_ADDRESS.state}
+              </span>
             </p>
-            <div className="flex items-center gap-3 text-[11px] text-slate-500">
+            <div className="flex items-center justify-center gap-3 text-[11px] text-slate-500 sm:justify-end">
               <a href="#" className="hover:text-slate-300 transition-colors">
                 Privacy
               </a>

@@ -1,27 +1,17 @@
 "use client"
 
-import { useRef, useEffect, useCallback, useState } from "react"
+import { useRef, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { SERVICES } from "@/lib/constants"
 
-const DESKTOP_CARD_WIDTH = 280
-const DESKTOP_CARD_GAP = 28
+const CARD_WIDTH = 280
+const CARD_GAP = 28
+const STRIDE = CARD_WIDTH + CARD_GAP
 const SERVICE_COUNT = SERVICES.length
+const SET_WIDTH = SERVICE_COUNT * STRIDE
 
 /** Three copies for seamless infinite scroll */
 const galleryServices = [...SERVICES, ...SERVICES, ...SERVICES]
-
-function getGalleryDimensions(containerWidth: number) {
-  const isDesktop = containerWidth >= 768
-  const cardWidth = isDesktop
-    ? DESKTOP_CARD_WIDTH
-    : Math.min(DESKTOP_CARD_WIDTH, Math.max(220, Math.round(containerWidth * 0.72)))
-  const cardGap = isDesktop ? DESKTOP_CARD_GAP : 20
-  const stride = cardWidth + cardGap
-  const setWidth = SERVICE_COUNT * stride
-
-  return { cardWidth, cardGap, stride, setWidth }
-}
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t
@@ -32,11 +22,8 @@ export function ServicesArcGallery() {
   const trackRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<(HTMLElement | null)[]>([])
 
-  const dimsRef = useRef(getGalleryDimensions(375))
-  const [dims, setDims] = useState(getGalleryDimensions(375))
-
-  const currentX = useRef(dimsRef.current.setWidth)
-  const targetX = useRef(dimsRef.current.setWidth)
+  const currentX = useRef(SET_WIDTH)
+  const targetX = useRef(SET_WIDTH)
   const isDragging = useRef(false)
   const dragStartX = useRef(0)
   const dragStartOffset = useRef(0)
@@ -46,14 +33,13 @@ export function ServicesArcGallery() {
   const rafId = useRef(0)
 
   const normalizeScroll = useCallback(() => {
-    const { setWidth } = dimsRef.current
-    while (targetX.current >= setWidth * 2) {
-      targetX.current -= setWidth
-      currentX.current -= setWidth
+    while (targetX.current >= SET_WIDTH * 2) {
+      targetX.current -= SET_WIDTH
+      currentX.current -= SET_WIDTH
     }
-    while (targetX.current < setWidth) {
-      targetX.current += setWidth
-      currentX.current += setWidth
+    while (targetX.current < SET_WIDTH) {
+      targetX.current += SET_WIDTH
+      currentX.current += SET_WIDTH
     }
   }, [])
 
@@ -61,20 +47,19 @@ export function ServicesArcGallery() {
     const container = containerRef.current
     if (!container) return
 
-    const { cardWidth: width, stride } = dimsRef.current
     const containerWidth = container.clientWidth
     const centerX = containerWidth / 2
-    const paddingLeft = centerX - width / 2
+    const paddingLeft = centerX - CARD_WIDTH / 2
 
     cardsRef.current.forEach((card, index) => {
       if (!card) return
-      const cardCenter = paddingLeft + index * stride + width / 2 - scrollX
+      const cardCenter = paddingLeft + index * STRIDE + CARD_WIDTH / 2 - scrollX
       const offset = cardCenter - centerX
       const norm = Math.max(-1, Math.min(1, offset / centerX))
 
-      const rotate = norm * (containerWidth >= 768 ? 12 : 8)
-      const arcY = containerWidth >= 768 ? -28 * (1 - Math.abs(norm)) : 0
-      const scale = 1 - Math.abs(norm) * (containerWidth >= 768 ? 0.08 : 0.05)
+      const rotate = norm * 12
+      const arcY = -28 * (1 - Math.abs(norm))
+      const scale = 1 - Math.abs(norm) * 0.08
 
       card.style.transform = `translate3d(0, ${arcY}px, 0) rotate(${rotate}deg) scale(${scale})`
     })
@@ -90,25 +75,6 @@ export function ServicesArcGallery() {
     },
     [updateCardTransforms]
   )
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const syncDimensions = () => {
-      const next = getGalleryDimensions(container.clientWidth)
-      dimsRef.current = next
-      setDims(next)
-      normalizeScroll()
-      applyTrackPosition(currentX.current)
-    }
-
-    syncDimensions()
-    const ro = new ResizeObserver(syncDimensions)
-    ro.observe(container)
-
-    return () => ro.disconnect()
-  }, [applyTrackPosition, normalizeScroll])
 
   useEffect(() => {
     const tick = () => {
@@ -133,7 +99,13 @@ export function ServicesArcGallery() {
     rafId.current = requestAnimationFrame(tick)
     applyTrackPosition(currentX.current)
 
-    return () => cancelAnimationFrame(rafId.current)
+    const onResize = () => applyTrackPosition(currentX.current)
+    window.addEventListener("resize", onResize)
+
+    return () => {
+      cancelAnimationFrame(rafId.current)
+      window.removeEventListener("resize", onResize)
+    }
   }, [applyTrackPosition, normalizeScroll])
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -185,12 +157,10 @@ export function ServicesArcGallery() {
     velocity.current = 0
   }
 
-  const { cardWidth, cardGap } = dims
-
   return (
     <div
       ref={containerRef}
-      className="services-arc-gallery relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y max-md:overscroll-contain"
+      className="services-arc-gallery relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -201,12 +171,11 @@ export function ServicesArcGallery() {
     >
       <div
         ref={trackRef}
-        className="flex h-full items-start gap-5 max-md:pt-4 py-3 will-change-transform md:gap-7 md:py-4"
+        className="flex h-full items-start gap-7 py-4 will-change-transform md:py-4"
         style={{
           width: "max-content",
-          paddingLeft: `calc(50% - ${cardWidth / 2}px)`,
-          paddingRight: `calc(50% - ${cardWidth / 2}px)`,
-          columnGap: cardGap,
+          paddingLeft: `calc(50% - ${CARD_WIDTH / 2}px)`,
+          paddingRight: `calc(50% - ${CARD_WIDTH / 2}px)`,
         }}
       >
         {galleryServices.map((service, index) => (
@@ -216,19 +185,19 @@ export function ServicesArcGallery() {
               cardsRef.current[index] = el
             }}
             className="flex shrink-0 flex-col items-center will-change-transform pointer-events-none"
-            style={{ width: cardWidth }}
+            style={{ width: CARD_WIDTH }}
           >
-            <div className="relative w-full h-[260px] sm:h-[320px] md:h-[420px] overflow-hidden rounded-xl">
+            <div className="relative w-full h-[420px] overflow-hidden rounded-xl">
               <Image
                 src={service.image}
                 alt={service.title}
                 fill
                 draggable={false}
                 className="object-cover pointer-events-none select-none"
-                sizes="(max-width: 767px) 72vw, 280px"
+                sizes="280px"
               />
             </div>
-            <h3 className="mt-3 w-full text-center text-sm sm:text-base md:text-lg font-semibold text-white leading-snug px-1 md:mt-4">
+            <h3 className="mt-4 w-full text-center text-base sm:text-lg font-semibold text-white leading-snug px-1">
               {service.title}
             </h3>
           </article>

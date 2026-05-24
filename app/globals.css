@@ -344,6 +344,34 @@
   opacity: 1;
 }
 
+@media (max-width: 767px) {
+  .partner-logo-mark {
+    height: 1.625rem;
+    max-width: 6.5rem;
+  }
+
+  .partner-marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .partner-marquee-track {
+    animation-duration: 40s;
+  }
+}
+
 @keyframes animated-dark-bg-mesh-shift {
   0% { opacity: 0.85; }
   100% { opacity: 1; }
