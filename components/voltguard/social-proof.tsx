@@ -112,7 +112,7 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
     <div
       className={clsx(
         "w-full max-w-md mx-auto",
-        compact ? "pt-3" : "mt-8 max-md:pt-0 md:border-t md:border-slate-800 md:pt-6"
+        compact ? "pt-3" : "mt-8 max-md:mb-0 max-md:pt-0 md:border-t md:border-slate-800 md:pt-6"
       )}
     >
       {/* Mobile / tablet — stacked card */}
@@ -136,7 +136,7 @@ function ReviewStats({ compact = false }: { compact?: boolean }) {
 
 export function SocialProof() {
   return (
-    <section id="testimonials" className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-6 pb-0">
+    <section id="testimonials" className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-6 pb-8 md:pb-0">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop */}
         <div className="hidden lg:block">

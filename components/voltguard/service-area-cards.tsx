@@ -74,7 +74,7 @@ function CardShell({
   accent?: "orange" | "blue"
 }) {
   return (
-    <div className="relative h-full min-h-[340px] overflow-hidden rounded-2xl border border-slate-700/80 bg-gradient-to-br from-slate-800/90 via-slate-800/70 to-slate-900/90 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
+    <div className="relative h-full min-h-0 overflow-hidden rounded-2xl border border-slate-700/80 bg-gradient-to-br from-slate-800/90 via-slate-800/70 to-slate-900/90 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] md:min-h-[340px] md:p-6">
       <div
         className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-20 blur-2xl"
         style={{
@@ -184,7 +184,7 @@ function CoverageZoneSearch() {
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
           Cities we serve
         </p>
-        <ul className="grid grid-cols-2 gap-2">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {SERVICE_AREA_CITIES.map((city) => (
             <li
               key={city}

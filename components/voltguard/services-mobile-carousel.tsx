@@ -5,7 +5,7 @@ import { SERVICES } from "@/lib/constants"
 
 export function ServicesMobileCarousel() {
   return (
-    <div className="md:hidden w-full" role="region" aria-label="Browse electrical services">
+    <div className="md:hidden w-full pb-6" role="region" aria-label="Browse electrical services">
       <p className="mb-4 text-center text-xs text-slate-500">Swipe to explore our services</p>
       <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {SERVICES.map((service) => (

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Script from "next/script"
 import { Minus, Plus } from "lucide-react"
 import {
@@ -18,9 +18,20 @@ const LEAFLET_STYLE_ID = "voltguard-leaflet-css"
 function ShieldLeafletMap() {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
+  const zoneRef = useRef<L.Circle | null>(null)
   const [leafletReady, setLeafletReady] = useState(
     () => typeof window !== "undefined" && Boolean(window.L)
   )
+
+  const fitMapToZone = useCallback(() => {
+    const map = mapRef.current
+    const zone = zoneRef.current
+    if (!map || !zone) return
+
+    map.invalidateSize()
+    const isMobile = window.matchMedia("(max-width: 767px)").matches
+    map.fitBounds(zone.getBounds(), { padding: isMobile ? [20, 20] : [28, 28] })
+  }, [])
 
   useEffect(() => {
     if (document.getElementById(LEAFLET_STYLE_ID)) return
@@ -77,26 +88,42 @@ function ShieldLeafletMap() {
 
     L.marker(center, { icon: markerIcon }).addTo(map)
 
-    map.fitBounds(zone.getBounds(), { padding: [28, 28] })
+    zoneRef.current = zone
+    fitMapToZone()
 
     mapRef.current = map
 
-    const resize = () => {
-      map.invalidateSize()
-      map.fitBounds(zone.getBounds(), { padding: [28, 28] })
-    }
-    const t1 = window.setTimeout(resize, 100)
-    const t2 = window.setTimeout(resize, 400)
-    window.addEventListener("resize", resize)
+    const t1 = window.setTimeout(fitMapToZone, 100)
+    const t2 = window.setTimeout(fitMapToZone, 400)
+    window.addEventListener("resize", fitMapToZone)
 
     return () => {
       window.clearTimeout(t1)
       window.clearTimeout(t2)
-      window.removeEventListener("resize", resize)
+      window.removeEventListener("resize", fitMapToZone)
       map.remove()
       mapRef.current = null
+      zoneRef.current = null
     }
-  }, [leafletReady])
+  }, [leafletReady, fitMapToZone])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container || !leafletReady) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          window.setTimeout(fitMapToZone, 50)
+          window.setTimeout(fitMapToZone, 300)
+        }
+      },
+      { threshold: 0.15 }
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [leafletReady, fitMapToZone])
 
   const zoomIn = () => mapRef.current?.zoomIn()
   const zoomOut = () => mapRef.current?.zoomOut()
@@ -141,9 +168,9 @@ function ShieldLeafletMap() {
 
 function ShieldMapInner() {
   return (
-    <div className="relative mx-auto w-full max-w-[580px] lg:max-w-[640px]">
+    <div className="relative mx-auto w-full max-w-[300px] md:max-w-[580px] lg:max-w-[640px]">
       <div
-        className="pointer-events-none absolute -inset-5 rounded-[2.5rem] opacity-50 blur-2xl"
+        className="pointer-events-none absolute max-md:inset-0 md:-inset-5 rounded-[2.5rem] opacity-30 md:opacity-50 blur-2xl"
         style={{
           background:
             "radial-gradient(ellipse at 50% 35%, rgba(30,58,138,0.35), transparent 60%), radial-gradient(ellipse at 50% 85%, rgba(15,23,42,0.9), transparent 65%)",

@@ -107,45 +107,47 @@ export function Footer() {
 
   return (
     <>
-      <div className="relative z-10 py-4 max-md:px-0 md:py-3">
+      <div className="relative z-10 border-t border-slate-800/80 py-5 md:py-3">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-2">
             <SpotlightButton
               href={PHONE_LINK}
               onClick={handlePhoneClick}
-              className="h-10 px-6 w-full sm:w-auto"
+              className="h-11 px-6 w-full sm:h-10 sm:w-auto"
             >
               <Phone className="h-4 w-4 text-white" />
               <SpotlightButtonLabel className="text-base">
                 Call {PHONE_NUMBER}
               </SpotlightButtonLabel>
             </SpotlightButton>
-            <QuoteCtaButton location="footer" className="h-10 px-6 w-full sm:w-auto" />
+            <QuoteCtaButton location="footer" className="h-11 px-6 w-full sm:h-10 sm:w-auto" />
           </div>
         </div>
       </div>
 
-      <footer id="contact" className="relative z-10 scroll-mt-28 md:scroll-mt-20 pt-5 pb-[max(1rem,env(safe-area-inset-bottom))] max-md:pb-6">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-5 overflow-hidden border-b border-slate-800 pb-5 max-md:pb-4">
+      <footer
+        id="contact"
+        className="relative z-10 scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 bg-slate-950/40 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:bg-transparent md:pb-4"
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-5">
+          <div className="mb-6 overflow-hidden border-b border-slate-800 pb-6 md:mb-5 md:pb-5">
             <PartnerMarqueeInline />
           </div>
 
-          {/* Info grid */}
-          <div className="grid grid-cols-1 gap-y-5 sm:grid-cols-2 lg:grid-cols-4 mb-4">
-            <div className="col-span-2 lg:col-span-1">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 lg:grid-cols-4 lg:gap-y-5 mb-6 md:mb-4">
+            <div className="flex flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1">
               <Image
                 src="/voltguard-logo-white-no-tagline.png"
                 alt="VoltGuard Electrical"
                 width={240}
                 height={72}
-                className="h-11 w-auto object-contain mb-2"
+                className="h-11 w-auto object-contain mb-3"
               />
-              <p className="text-sm font-semibold text-white mb-0.5">{SITE_HEADLINE}</p>
-              <p className="text-xs text-slate-400 leading-snug mb-0 max-w-[220px]">
+              <p className="text-sm font-semibold text-white mb-1">{SITE_HEADLINE}</p>
+              <p className="text-xs text-slate-400 leading-relaxed max-w-xs">
                 {SITE_SUBHEADLINE}
               </p>
-              <div className="mt-5 flex flex-wrap gap-1">
+              <div className="mt-4 flex flex-wrap justify-center gap-1.5 sm:justify-start">
                 {SOCIAL_LINKS.map((social) => (
                   <a
                     key={social.label}
@@ -162,8 +164,8 @@ export function Footer() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            <div className="border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
+              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3">
                 Company
               </h3>
               <ul className="space-y-1.5">
@@ -179,8 +181,8 @@ export function Footer() {
               </ul>
             </div>
 
-            <div>
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1">
+            <div className="border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
+              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1">
                 <MapPin className="h-3 w-3 text-orange-400" />
                 Location
               </h3>
@@ -206,8 +208,8 @@ export function Footer() {
               </p>
             </div>
 
-            <div id="licenses" className="scroll-mt-28 md:scroll-mt-20">
-              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1">
+            <div id="licenses" className="scroll-mt-28 md:scroll-mt-20 border-t border-slate-800/80 pt-6 sm:border-t-0 sm:pt-0">
+              <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1">
                 <Shield className="h-3 w-3 text-orange-400" />
                 Licenses
               </h3>
@@ -222,13 +224,13 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 border-t border-slate-800 pt-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[11px] text-slate-500 text-center leading-relaxed sm:text-left">
               &copy; {new Date().getFullYear()} VoltGuard Electrical
-              <span className="max-md:hidden"> · {SHOP_ADDRESS.full}</span>
-              <span className="md:hidden">
-                <br />
-                {SHOP_ADDRESS.city}, {SHOP_ADDRESS.state}
+              <span className="hidden sm:inline"> · {SHOP_ADDRESS.full}</span>
+              <span className="block sm:hidden mt-1 text-slate-600">
+                {SHOP_ADDRESS.street}, {SHOP_ADDRESS.city}, {SHOP_ADDRESS.state}{" "}
+                {SHOP_ADDRESS.zip}
               </span>
             </p>
             <div className="flex items-center justify-center gap-3 text-[11px] text-slate-500 sm:justify-end">

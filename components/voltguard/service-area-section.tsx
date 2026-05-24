@@ -5,7 +5,10 @@ import { FadeInUp, SlideInLeft, SlideInRight } from "@/lib/scroll-animations"
 
 export function ServiceAreaSection() {
   return (
-    <section id="service-area" className="relative scroll-mt-28 md:scroll-mt-20 pt-0 md:pt-2 pb-6 md:pb-8 overflow-hidden">
+    <section
+      id="service-area"
+      className="relative scroll-mt-28 md:scroll-mt-20 pt-4 md:pt-2 pb-10 md:pb-8 overflow-hidden"
+    >
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         aria-hidden
@@ -16,7 +19,7 @@ export function ServiceAreaSection() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-5 md:mb-6">
+        <div className="text-center mb-6 md:mb-6">
           <FadeInUp delay={0}>
             <p className="text-sm font-semibold uppercase tracking-widest text-orange-500 mb-2">
               VoltGuard Protected
@@ -36,7 +39,20 @@ export function ServiceAreaSection() {
           </FadeInUp>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+        {/* Mobile — stacked, no slide animations */}
+        <div className="space-y-8 md:hidden">
+          <FadeInUp delay={0.15}>
+            <div className="mx-auto w-full max-w-[300px]">
+              <ShieldMap />
+            </div>
+          </FadeInUp>
+          <FadeInUp delay={0.2}>
+            <ServiceAreaCards />
+          </FadeInUp>
+        </div>
+
+        {/* Desktop — side by side */}
+        <div className="hidden md:grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
           <SlideInLeft delay={0.15}>
             <div className="min-w-0 w-full">
               <ServiceAreaCards />
